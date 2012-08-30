@@ -1,0 +1,10 @@
+xcodeproj 'AeroGear-iOS-Integration.xcodeproj'
+
+platform :ios
+
+pod 'AeroGear'
+pod 'AFNetworking', '~> 1.0RC1'
+
+target 'AeroGear-iOS-IntegrationTests', :exclusive => true do
+	pod 'Kiwi'
+end
