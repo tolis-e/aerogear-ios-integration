@@ -54,8 +54,6 @@
     }];
     
     
-    
-    
     while(!_finishedFlag) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
