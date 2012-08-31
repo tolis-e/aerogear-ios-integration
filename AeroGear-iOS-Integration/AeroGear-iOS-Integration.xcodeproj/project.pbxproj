@@ -15,6 +15,8 @@
 		570CAC2F15F0AF8A00E54378 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 570CAC2D15F0AF8A00E54378 /* InfoPlist.strings */; };
 		570CAC4415F0B03900E54378 /* Dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 570CAC4315F0B03900E54378 /* Dummy.m */; };
 		570CAC4715F0B08900E54378 /* AGIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 570CAC4615F0B08900E54378 /* AGIntegrationTests.m */; };
+		570CAC5615F0B67000E54378 /* AGPipelineUsecaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 570CAC5515F0B67000E54378 /* AGPipelineUsecaseTests.m */; };
+		570CAC5A15F0B6D200E54378 /* AGRestPipeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 570CAC5915F0B6D200E54378 /* AGRestPipeTests.m */; };
 		65D0975DE8C54FE58092C428 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A26A08368F4CF8A40F5080 /* libPods.a */; };
 		8E363BFA8E044B4F83015325 /* libPods-AeroGear-iOS-IntegrationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FF3440F18ED4C48AD820B93 /* libPods-AeroGear-iOS-IntegrationTests.a */; };
 /* End PBXBuildFile section */
@@ -55,6 +57,10 @@
 		570CAC4315F0B03900E54378 /* Dummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dummy.m; sourceTree = "<group>"; };
 		570CAC4515F0B08900E54378 /* AGIntegrationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGIntegrationTests.h; sourceTree = "<group>"; };
 		570CAC4615F0B08900E54378 /* AGIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGIntegrationTests.m; sourceTree = "<group>"; };
+		570CAC5415F0B67000E54378 /* AGPipelineUsecaseTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGPipelineUsecaseTests.h; sourceTree = "<group>"; };
+		570CAC5515F0B67000E54378 /* AGPipelineUsecaseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPipelineUsecaseTests.m; sourceTree = "<group>"; };
+		570CAC5815F0B6D200E54378 /* AGRestPipeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGRestPipeTests.h; sourceTree = "<group>"; };
+		570CAC5915F0B6D200E54378 /* AGRestPipeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGRestPipeTests.m; sourceTree = "<group>"; };
 		8FF3440F18ED4C48AD820B93 /* libPods-AeroGear-iOS-IntegrationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AeroGear-iOS-IntegrationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E999A0F8B48346BCBDBFE8D8 /* Pods-AeroGear-iOS-IntegrationTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AeroGear-iOS-IntegrationTests.xcconfig"; path = "Pods/Pods-AeroGear-iOS-IntegrationTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 		FD8942F3616B4E07A120DA18 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -142,6 +148,10 @@
 				570CAC2B15F0AF8A00E54378 /* Supporting Files */,
 				570CAC4515F0B08900E54378 /* AGIntegrationTests.h */,
 				570CAC4615F0B08900E54378 /* AGIntegrationTests.m */,
+				570CAC5415F0B67000E54378 /* AGPipelineUsecaseTests.h */,
+				570CAC5515F0B67000E54378 /* AGPipelineUsecaseTests.m */,
+				570CAC5815F0B6D200E54378 /* AGRestPipeTests.h */,
+				570CAC5915F0B6D200E54378 /* AGRestPipeTests.m */,
 			);
 			path = "AeroGear-iOS-IntegrationTests";
 			sourceTree = "<group>";
@@ -292,6 +302,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				570CAC4715F0B08900E54378 /* AGIntegrationTests.m in Sources */,
+				570CAC5615F0B67000E54378 /* AGPipelineUsecaseTests.m in Sources */,
+				570CAC5A15F0B6D200E54378 /* AGRestPipeTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
