@@ -98,7 +98,7 @@
     NSMutableDictionary* newProject = [NSMutableDictionary dictionary];
     
     // {"title":"my title","style":"project-232-96-96"}
-    [newProject setValue:@"306" forKey:@"id"];
+    [newProject setValue:@"324" forKey:@"id"];
     [newProject setValue:@"matzew: do NOT delete!" forKey:@"title"];
     [newProject setValue:@"project-255-255-255" forKey:@"style"];
     
