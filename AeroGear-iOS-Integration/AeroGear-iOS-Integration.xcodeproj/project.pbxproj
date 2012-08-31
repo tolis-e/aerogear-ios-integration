@@ -1,0 +1,457 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		570CAC1415F0AF8A00E54378 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 570CAC1315F0AF8A00E54378 /* Foundation.framework */; };
+		570CAC2315F0AF8A00E54378 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 570CAC2215F0AF8A00E54378 /* SenTestingKit.framework */; };
+		570CAC2515F0AF8A00E54378 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 570CAC2415F0AF8A00E54378 /* UIKit.framework */; };
+		570CAC2615F0AF8A00E54378 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 570CAC1315F0AF8A00E54378 /* Foundation.framework */; };
+		570CAC2915F0AF8A00E54378 /* libAeroGear-iOS-Integration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 570CAC1015F0AF8A00E54378 /* libAeroGear-iOS-Integration.a */; };
+		570CAC2F15F0AF8A00E54378 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 570CAC2D15F0AF8A00E54378 /* InfoPlist.strings */; };
+		570CAC4415F0B03900E54378 /* Dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 570CAC4315F0B03900E54378 /* Dummy.m */; };
+		570CAC4715F0B08900E54378 /* AGIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 570CAC4615F0B08900E54378 /* AGIntegrationTests.m */; };
+		65D0975DE8C54FE58092C428 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A26A08368F4CF8A40F5080 /* libPods.a */; };
+		8E363BFA8E044B4F83015325 /* libPods-AeroGear-iOS-IntegrationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FF3440F18ED4C48AD820B93 /* libPods-AeroGear-iOS-IntegrationTests.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		570CAC2715F0AF8A00E54378 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 570CAC0715F0AF8A00E54378 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 570CAC0F15F0AF8A00E54378;
+			remoteInfo = "AeroGear-iOS-Integration";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		570CAC0E15F0AF8A00E54378 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/${PRODUCT_NAME}";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		12A26A08368F4CF8A40F5080 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		570CAC1015F0AF8A00E54378 /* libAeroGear-iOS-Integration.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libAeroGear-iOS-Integration.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		570CAC1315F0AF8A00E54378 /* Foundation.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		570CAC1715F0AF8A00E54378 /* AeroGear-iOS-Integration-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AeroGear-iOS-Integration-Prefix.pch"; sourceTree = "<group>"; };
+		570CAC2115F0AF8A00E54378 /* AeroGear-iOS-IntegrationTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AeroGear-iOS-IntegrationTests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		570CAC2215F0AF8A00E54378 /* SenTestingKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		570CAC2415F0AF8A00E54378 /* UIKit.framework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		570CAC2C15F0AF8A00E54378 /* AeroGear-iOS-IntegrationTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AeroGear-iOS-IntegrationTests-Info.plist"; sourceTree = "<group>"; };
+		570CAC2E15F0AF8A00E54378 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		570CAC4215F0B03900E54378 /* Dummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dummy.h; sourceTree = "<group>"; };
+		570CAC4315F0B03900E54378 /* Dummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dummy.m; sourceTree = "<group>"; };
+		570CAC4515F0B08900E54378 /* AGIntegrationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGIntegrationTests.h; sourceTree = "<group>"; };
+		570CAC4615F0B08900E54378 /* AGIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGIntegrationTests.m; sourceTree = "<group>"; };
+		8FF3440F18ED4C48AD820B93 /* libPods-AeroGear-iOS-IntegrationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AeroGear-iOS-IntegrationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E999A0F8B48346BCBDBFE8D8 /* Pods-AeroGear-iOS-IntegrationTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AeroGear-iOS-IntegrationTests.xcconfig"; path = "Pods/Pods-AeroGear-iOS-IntegrationTests.xcconfig"; sourceTree = SOURCE_ROOT; };
+		FD8942F3616B4E07A120DA18 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		570CAC0D15F0AF8A00E54378 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				570CAC1415F0AF8A00E54378 /* Foundation.framework in Frameworks */,
+				65D0975DE8C54FE58092C428 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		570CAC1D15F0AF8A00E54378 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				570CAC2315F0AF8A00E54378 /* SenTestingKit.framework in Frameworks */,
+				570CAC2515F0AF8A00E54378 /* UIKit.framework in Frameworks */,
+				570CAC2615F0AF8A00E54378 /* Foundation.framework in Frameworks */,
+				570CAC2915F0AF8A00E54378 /* libAeroGear-iOS-Integration.a in Frameworks */,
+				8E363BFA8E044B4F83015325 /* libPods-AeroGear-iOS-IntegrationTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		570CAC0515F0AF8A00E54378 = {
+			isa = PBXGroup;
+			children = (
+				570CAC1515F0AF8A00E54378 /* AeroGear-iOS-Integration */,
+				570CAC2A15F0AF8A00E54378 /* AeroGear-iOS-IntegrationTests */,
+				570CAC1215F0AF8A00E54378 /* Frameworks */,
+				570CAC1115F0AF8A00E54378 /* Products */,
+				FD8942F3616B4E07A120DA18 /* Pods.xcconfig */,
+				E999A0F8B48346BCBDBFE8D8 /* Pods-AeroGear-iOS-IntegrationTests.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		570CAC1115F0AF8A00E54378 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				570CAC1015F0AF8A00E54378 /* libAeroGear-iOS-Integration.a */,
+				570CAC2115F0AF8A00E54378 /* AeroGear-iOS-IntegrationTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		570CAC1215F0AF8A00E54378 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				570CAC1315F0AF8A00E54378 /* Foundation.framework */,
+				570CAC2215F0AF8A00E54378 /* SenTestingKit.framework */,
+				570CAC2415F0AF8A00E54378 /* UIKit.framework */,
+				12A26A08368F4CF8A40F5080 /* libPods.a */,
+				8FF3440F18ED4C48AD820B93 /* libPods-AeroGear-iOS-IntegrationTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		570CAC1515F0AF8A00E54378 /* AeroGear-iOS-Integration */ = {
+			isa = PBXGroup;
+			children = (
+				570CAC1615F0AF8A00E54378 /* Supporting Files */,
+				570CAC4215F0B03900E54378 /* Dummy.h */,
+				570CAC4315F0B03900E54378 /* Dummy.m */,
+			);
+			path = "AeroGear-iOS-Integration";
+			sourceTree = "<group>";
+		};
+		570CAC1615F0AF8A00E54378 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				570CAC1715F0AF8A00E54378 /* AeroGear-iOS-Integration-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		570CAC2A15F0AF8A00E54378 /* AeroGear-iOS-IntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+				570CAC2B15F0AF8A00E54378 /* Supporting Files */,
+				570CAC4515F0B08900E54378 /* AGIntegrationTests.h */,
+				570CAC4615F0B08900E54378 /* AGIntegrationTests.m */,
+			);
+			path = "AeroGear-iOS-IntegrationTests";
+			sourceTree = "<group>";
+		};
+		570CAC2B15F0AF8A00E54378 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				570CAC2C15F0AF8A00E54378 /* AeroGear-iOS-IntegrationTests-Info.plist */,
+				570CAC2D15F0AF8A00E54378 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		570CAC0F15F0AF8A00E54378 /* AeroGear-iOS-Integration */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 570CAC3515F0AF8A00E54378 /* Build configuration list for PBXNativeTarget "AeroGear-iOS-Integration" */;
+			buildPhases = (
+				570CAC0C15F0AF8A00E54378 /* Sources */,
+				570CAC0D15F0AF8A00E54378 /* Frameworks */,
+				570CAC0E15F0AF8A00E54378 /* CopyFiles */,
+				628658F9FA294C999B76C141 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AeroGear-iOS-Integration";
+			productName = "AeroGear-iOS-Integration";
+			productReference = 570CAC1015F0AF8A00E54378 /* libAeroGear-iOS-Integration.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		570CAC2015F0AF8A00E54378 /* AeroGear-iOS-IntegrationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 570CAC3815F0AF8A00E54378 /* Build configuration list for PBXNativeTarget "AeroGear-iOS-IntegrationTests" */;
+			buildPhases = (
+				570CAC1C15F0AF8A00E54378 /* Sources */,
+				570CAC1D15F0AF8A00E54378 /* Frameworks */,
+				570CAC1E15F0AF8A00E54378 /* Resources */,
+				570CAC1F15F0AF8A00E54378 /* ShellScript */,
+				6C8088A5B56C4DC3ADACB951 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				570CAC2815F0AF8A00E54378 /* PBXTargetDependency */,
+			);
+			name = "AeroGear-iOS-IntegrationTests";
+			productName = "AeroGear-iOS-IntegrationTests";
+			productReference = 570CAC2115F0AF8A00E54378 /* AeroGear-iOS-IntegrationTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		570CAC0715F0AF8A00E54378 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = JBoss;
+			};
+			buildConfigurationList = 570CAC0A15F0AF8A00E54378 /* Build configuration list for PBXProject "AeroGear-iOS-Integration" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 570CAC0515F0AF8A00E54378;
+			productRefGroup = 570CAC1115F0AF8A00E54378 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				570CAC0F15F0AF8A00E54378 /* AeroGear-iOS-Integration */,
+				570CAC2015F0AF8A00E54378 /* AeroGear-iOS-IntegrationTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		570CAC1E15F0AF8A00E54378 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				570CAC2F15F0AF8A00E54378 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		570CAC1F15F0AF8A00E54378 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		628658F9FA294C999B76C141 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+		6C8088A5B56C4DC3ADACB951 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-AeroGear-iOS-IntegrationTests-resources.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		570CAC0C15F0AF8A00E54378 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				570CAC4415F0B03900E54378 /* Dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		570CAC1C15F0AF8A00E54378 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				570CAC4715F0B08900E54378 /* AGIntegrationTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		570CAC2815F0AF8A00E54378 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 570CAC0F15F0AF8A00E54378 /* AeroGear-iOS-Integration */;
+			targetProxy = 570CAC2715F0AF8A00E54378 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		570CAC2D15F0AF8A00E54378 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				570CAC2E15F0AF8A00E54378 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		570CAC3315F0AF8A00E54378 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		570CAC3415F0AF8A00E54378 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		570CAC3615F0AF8A00E54378 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD8942F3616B4E07A120DA18 /* Pods.xcconfig */;
+			buildSettings = {
+				DSTROOT = /tmp/AeroGear_iOS_Integration.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AeroGear-iOS-Integration/AeroGear-iOS-Integration-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		570CAC3715F0AF8A00E54378 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD8942F3616B4E07A120DA18 /* Pods.xcconfig */;
+			buildSettings = {
+				DSTROOT = /tmp/AeroGear_iOS_Integration.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AeroGear-iOS-Integration/AeroGear-iOS-Integration-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		570CAC3915F0AF8A00E54378 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E999A0F8B48346BCBDBFE8D8 /* Pods-AeroGear-iOS-IntegrationTests.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AeroGear-iOS-Integration/AeroGear-iOS-Integration-Prefix.pch";
+				INFOPLIST_FILE = "AeroGear-iOS-IntegrationTests/AeroGear-iOS-IntegrationTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		570CAC3A15F0AF8A00E54378 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E999A0F8B48346BCBDBFE8D8 /* Pods-AeroGear-iOS-IntegrationTests.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AeroGear-iOS-Integration/AeroGear-iOS-Integration-Prefix.pch";
+				INFOPLIST_FILE = "AeroGear-iOS-IntegrationTests/AeroGear-iOS-IntegrationTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		570CAC0A15F0AF8A00E54378 /* Build configuration list for PBXProject "AeroGear-iOS-Integration" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				570CAC3315F0AF8A00E54378 /* Debug */,
+				570CAC3415F0AF8A00E54378 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		570CAC3515F0AF8A00E54378 /* Build configuration list for PBXNativeTarget "AeroGear-iOS-Integration" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				570CAC3615F0AF8A00E54378 /* Debug */,
+				570CAC3715F0AF8A00E54378 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		570CAC3815F0AF8A00E54378 /* Build configuration list for PBXNativeTarget "AeroGear-iOS-IntegrationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				570CAC3915F0AF8A00E54378 /* Debug */,
+				570CAC3A15F0AF8A00E54378 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 570CAC0715F0AF8A00E54378 /* Project object */;
+}
