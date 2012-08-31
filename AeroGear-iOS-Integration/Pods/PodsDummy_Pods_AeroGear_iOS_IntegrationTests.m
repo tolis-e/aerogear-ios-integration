@@ -1,0 +1,4 @@
+@interface PodsDummy_Pods_AeroGear_iOS_IntegrationTests : NSObject
+@end
+@implementation PodsDummy_Pods_AeroGear_iOS_IntegrationTests
+@end
