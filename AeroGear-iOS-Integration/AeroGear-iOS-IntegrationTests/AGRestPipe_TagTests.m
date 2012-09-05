@@ -15,7 +15,11 @@
  * limitations under the License.
  */
 
-#import "AGRestPipe_TagTests.h"
+#import <AGAbstractBaseTestClass.h>
+
+
+@interface AGRestPipe_TagTests : AGAbstractBaseTestClass
+@end
 
 @implementation AGRestPipe_TagTests {
     id<AGPipe> tags;

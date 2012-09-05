@@ -15,7 +15,11 @@
  * limitations under the License.
  */
 
-#import "AGRestPipe_ProjectTests.h"
+#import <AGAbstractBaseTestClass.h>
+
+
+@interface AGRestPipe_ProjectTests : AGAbstractBaseTestClass
+@end
 
 @implementation AGRestPipe_ProjectTests {
     id<AGPipe> projects;

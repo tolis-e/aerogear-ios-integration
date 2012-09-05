@@ -15,7 +15,14 @@
  * limitations under the License.
  */
 
-#import "AGRestPipe_TaskTests.h"
+#import "AGAbstractBaseTestClass.h"
+
+@interface AGRestPipe_ProjectTests : AGAbstractBaseTestClass
+
+@end
+
+@interface AGRestPipe_TaskTests : AGAbstractBaseTestClass
+@end
 
 @implementation AGRestPipe_TaskTests {
     id<AGPipe> tasks;
