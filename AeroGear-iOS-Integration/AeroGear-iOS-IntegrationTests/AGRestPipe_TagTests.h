@@ -15,8 +15,10 @@
  * limitations under the License.
  */
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <AGAbstractBaseTestClass.h>
 
-@interface AGIntegrationTests : SenTestCase
+
+@interface AGRestPipe_TagTests : AGAbstractBaseTestClass
+
 
 @end

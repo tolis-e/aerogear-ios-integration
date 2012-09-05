@@ -93,6 +93,7 @@
     };
     
     id failureCallback = ^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"dadadaadsadsadsadsdsaads");
         if (failure) {
             NSLog(@"Invoking failure block....");
             failure(error);

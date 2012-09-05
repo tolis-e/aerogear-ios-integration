@@ -14,9 +14,10 @@
 		570CAC2915F0AF8A00E54378 /* libAeroGear-iOS-Integration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 570CAC1015F0AF8A00E54378 /* libAeroGear-iOS-Integration.a */; };
 		570CAC2F15F0AF8A00E54378 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 570CAC2D15F0AF8A00E54378 /* InfoPlist.strings */; };
 		570CAC4415F0B03900E54378 /* Dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 570CAC4315F0B03900E54378 /* Dummy.m */; };
-		570CAC4715F0B08900E54378 /* AGIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 570CAC4615F0B08900E54378 /* AGIntegrationTests.m */; };
-		570CAC5615F0B67000E54378 /* AGPipelineUsecaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 570CAC5515F0B67000E54378 /* AGPipelineUsecaseTests.m */; };
-		570CAC5A15F0B6D200E54378 /* AGRestPipeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 570CAC5915F0B6D200E54378 /* AGRestPipeTests.m */; };
+		57DCDB5915F0FD5700289EA4 /* AGRestPipe_TaskTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 57DCDB5815F0FD5700289EA4 /* AGRestPipe_TaskTests.m */; };
+		57DCDB5D15F0FD6500289EA4 /* AGRestPipe_ProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 57DCDB5C15F0FD6500289EA4 /* AGRestPipe_ProjectTests.m */; };
+		57DCDB6015F0FD7A00289EA4 /* AGRestPipe_TagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 57DCDB5F15F0FD7A00289EA4 /* AGRestPipe_TagTests.m */; };
+		57DCDB6315F0FF2400289EA4 /* AGAbstractBaseTestClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 57DCDB6215F0FF2400289EA4 /* AGAbstractBaseTestClass.m */; };
 		65D0975DE8C54FE58092C428 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12A26A08368F4CF8A40F5080 /* libPods.a */; };
 		8E363BFA8E044B4F83015325 /* libPods-AeroGear-iOS-IntegrationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FF3440F18ED4C48AD820B93 /* libPods-AeroGear-iOS-IntegrationTests.a */; };
 /* End PBXBuildFile section */
@@ -55,12 +56,14 @@
 		570CAC2E15F0AF8A00E54378 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		570CAC4215F0B03900E54378 /* Dummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dummy.h; sourceTree = "<group>"; };
 		570CAC4315F0B03900E54378 /* Dummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dummy.m; sourceTree = "<group>"; };
-		570CAC4515F0B08900E54378 /* AGIntegrationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGIntegrationTests.h; sourceTree = "<group>"; };
-		570CAC4615F0B08900E54378 /* AGIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGIntegrationTests.m; sourceTree = "<group>"; };
-		570CAC5415F0B67000E54378 /* AGPipelineUsecaseTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGPipelineUsecaseTests.h; sourceTree = "<group>"; };
-		570CAC5515F0B67000E54378 /* AGPipelineUsecaseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPipelineUsecaseTests.m; sourceTree = "<group>"; };
-		570CAC5815F0B6D200E54378 /* AGRestPipeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGRestPipeTests.h; sourceTree = "<group>"; };
-		570CAC5915F0B6D200E54378 /* AGRestPipeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGRestPipeTests.m; sourceTree = "<group>"; };
+		57DCDB5715F0FD5700289EA4 /* AGRestPipe_TaskTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGRestPipe_TaskTests.h; sourceTree = "<group>"; };
+		57DCDB5815F0FD5700289EA4 /* AGRestPipe_TaskTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGRestPipe_TaskTests.m; sourceTree = "<group>"; };
+		57DCDB5B15F0FD6500289EA4 /* AGRestPipe_ProjectTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGRestPipe_ProjectTests.h; sourceTree = "<group>"; };
+		57DCDB5C15F0FD6500289EA4 /* AGRestPipe_ProjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGRestPipe_ProjectTests.m; sourceTree = "<group>"; };
+		57DCDB5E15F0FD7A00289EA4 /* AGRestPipe_TagTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGRestPipe_TagTests.h; sourceTree = "<group>"; };
+		57DCDB5F15F0FD7A00289EA4 /* AGRestPipe_TagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGRestPipe_TagTests.m; sourceTree = "<group>"; };
+		57DCDB6115F0FF2400289EA4 /* AGAbstractBaseTestClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGAbstractBaseTestClass.h; sourceTree = "<group>"; };
+		57DCDB6215F0FF2400289EA4 /* AGAbstractBaseTestClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGAbstractBaseTestClass.m; sourceTree = "<group>"; };
 		8FF3440F18ED4C48AD820B93 /* libPods-AeroGear-iOS-IntegrationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AeroGear-iOS-IntegrationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E999A0F8B48346BCBDBFE8D8 /* Pods-AeroGear-iOS-IntegrationTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AeroGear-iOS-IntegrationTests.xcconfig"; path = "Pods/Pods-AeroGear-iOS-IntegrationTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 		FD8942F3616B4E07A120DA18 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -145,13 +148,14 @@
 		570CAC2A15F0AF8A00E54378 /* AeroGear-iOS-IntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
+				57DCDB6415F0FF8A00289EA4 /* abstract */,
 				570CAC2B15F0AF8A00E54378 /* Supporting Files */,
-				570CAC4515F0B08900E54378 /* AGIntegrationTests.h */,
-				570CAC4615F0B08900E54378 /* AGIntegrationTests.m */,
-				570CAC5415F0B67000E54378 /* AGPipelineUsecaseTests.h */,
-				570CAC5515F0B67000E54378 /* AGPipelineUsecaseTests.m */,
-				570CAC5815F0B6D200E54378 /* AGRestPipeTests.h */,
-				570CAC5915F0B6D200E54378 /* AGRestPipeTests.m */,
+				57DCDB5715F0FD5700289EA4 /* AGRestPipe_TaskTests.h */,
+				57DCDB5815F0FD5700289EA4 /* AGRestPipe_TaskTests.m */,
+				57DCDB5B15F0FD6500289EA4 /* AGRestPipe_ProjectTests.h */,
+				57DCDB5C15F0FD6500289EA4 /* AGRestPipe_ProjectTests.m */,
+				57DCDB5E15F0FD7A00289EA4 /* AGRestPipe_TagTests.h */,
+				57DCDB5F15F0FD7A00289EA4 /* AGRestPipe_TagTests.m */,
 			);
 			path = "AeroGear-iOS-IntegrationTests";
 			sourceTree = "<group>";
@@ -163,6 +167,15 @@
 				570CAC2D15F0AF8A00E54378 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		57DCDB6415F0FF8A00289EA4 /* abstract */ = {
+			isa = PBXGroup;
+			children = (
+				57DCDB6115F0FF2400289EA4 /* AGAbstractBaseTestClass.h */,
+				57DCDB6215F0FF2400289EA4 /* AGAbstractBaseTestClass.m */,
+			);
+			name = abstract;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,9 +316,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				570CAC4715F0B08900E54378 /* AGIntegrationTests.m in Sources */,
-				570CAC5615F0B67000E54378 /* AGPipelineUsecaseTests.m in Sources */,
-				570CAC5A15F0B6D200E54378 /* AGRestPipeTests.m in Sources */,
+				57DCDB5915F0FD5700289EA4 /* AGRestPipe_TaskTests.m in Sources */,
+				57DCDB5D15F0FD6500289EA4 /* AGRestPipe_ProjectTests.m in Sources */,
+				57DCDB6015F0FD7A00289EA4 /* AGRestPipe_TagTests.m in Sources */,
+				57DCDB6315F0FF2400289EA4 /* AGAbstractBaseTestClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

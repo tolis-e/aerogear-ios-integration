@@ -37,6 +37,11 @@
                BlueprintName = "AeroGear-iOS-IntegrationTests"
                ReferencedContainer = "container:AeroGear-iOS-Integration.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "AGRestPipeTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

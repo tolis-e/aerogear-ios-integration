@@ -15,8 +15,36 @@
  * limitations under the License.
  */
 
-#import <SenTestingKit/SenTestingKit.h>
+#import "AGAbstractBaseTestClass.h"
 
-@interface AGRestPipeTests : SenTestCase
+@implementation AGAbstractBaseTestClass
+
+@synthesize finishRunLoop = _finishRunLoop;
+
+// abstract:
+- (id)init
+{
+    if ([self class] == [AGAbstractBaseTestClass class]) {
+        @throw [NSException exceptionWithName:NSInternalInconsistencyException
+          reason:@"Error, attempting to instantiate AGAbstractBaseTestClass directly." userInfo:nil];
+    }
+    
+    self = [super init];
+    if (self) {
+        // Initialization code here.
+    }
+    return self;
+}
+
+
+-(void)setUp {
+    [super setUp];
+    _finishRunLoop = NO;
+}
+
+-(void)tearDown {
+    [super tearDown];
+}
+
 
 @end

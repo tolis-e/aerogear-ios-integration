@@ -16,7 +16,10 @@
  */
 
 #import <SenTestingKit/SenTestingKit.h>
+#import "AeroGear.h"
 
-@interface AGPipelineUsecaseTests : SenTestCase
+@interface AGAbstractBaseTestClass : SenTestCase
+
+@property (nonatomic) BOOL finishRunLoop;
 
 @end
