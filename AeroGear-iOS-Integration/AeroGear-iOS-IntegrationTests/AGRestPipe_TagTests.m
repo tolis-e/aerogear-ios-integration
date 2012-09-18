@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-#import <AGAbstractBaseTestClass.h>
+#import "AGAbstractBaseTestClass.h"
 
 
 @interface AGRestPipe_TagTests : AGAbstractBaseTestClass
@@ -45,11 +45,8 @@ NSString* __createId;
     // basic setup, for every test:
     // create the 'todo' pipeline;
     
-    NSString* base = @"http://localhost:8080/todo-server/";
-    NSString* urlWithEndpoint = [base stringByAppendingString:@"tags/"];
-    
-    NSURL* projectsURL = [NSURL URLWithString:urlWithEndpoint];
-    AGPipeline* todo = [AGPipeline pipelineWithPipe:@"tags" url:projectsURL type:@"REST"];
+    NSURL* projectsURL = [NSURL URLWithString:@"http://localhost:8080/todo-server/"];
+    AGPipeline* todo = [AGPipeline pipelineWithPipe:@"tags" baseURL:projectsURL type:@"REST"];
     
     // get access to the projects pipe
     tags = [todo get:@"tags"];

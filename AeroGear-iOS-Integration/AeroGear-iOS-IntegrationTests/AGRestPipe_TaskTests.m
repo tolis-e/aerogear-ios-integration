@@ -48,11 +48,8 @@ NSString* __createId;
     // basic setup, for every test:
     // create the 'todo' pipeline;
     
-    NSString* base = @"http://localhost:8080/todo-server/";
-    NSString* urlWithEndpoint = [base stringByAppendingString:@"tasks/"];
-    
-    NSURL* projectsURL = [NSURL URLWithString:urlWithEndpoint];
-    AGPipeline* todo = [AGPipeline pipelineWithPipe:@"tasks" url:projectsURL type:@"REST"];
+    NSURL* projectsURL = [NSURL URLWithString:@"http://localhost:8080/todo-server/"];
+    AGPipeline* todo = [AGPipeline pipelineWithPipe:@"tasks" baseURL:projectsURL type:@"REST"];
     
     // get access to the projects pipe
     tasks = [todo get:@"tasks"];
