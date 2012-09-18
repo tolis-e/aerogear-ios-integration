@@ -20,8 +20,8 @@ DerivedData
 
 
 # CocoaPods
-##Podfile.lock
-##Pods/
+Podfile.lock
+Pods/
 
 #Docset/AppleDoc
 */Docset/*
