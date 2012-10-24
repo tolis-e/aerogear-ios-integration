@@ -22,6 +22,7 @@
 @end
 
 @implementation AGRestPipe_ProjectTests {
+    id<AGAuthenticationModule> authModule;
     id<AGPipe> projects;
 }
 
@@ -46,8 +47,12 @@ NSString* __createId;
     // create the 'todo' pipeline;
 
     NSURL* projectsURL = [NSURL URLWithString:@"http://localhost:8080/todo-server/"];
+    
+    AGAuthenticator* authenticator = [AGAuthenticator authenticator];
+    authModule = [authenticator add:@"myModule" baseURL:projectsURL];
+    
     AGPipeline* todo = [AGPipeline pipeline];
-    [todo add:@"projects" baseURL:projectsURL type:@"REST"];
+    [todo add:@"projects" baseURL:projectsURL type:@"REST" authModule:authModule];
     
     // get access to the projects pipe
     projects = [todo get:@"projects"];
@@ -60,6 +65,8 @@ NSString* __createId;
 // CREATE
 -(void)testCreateProject {
     
+    // login....
+    [authModule login:@"john" password:@"123" success:^(id object) {
     // a new project object, structure looks like:
     NSMutableDictionary* project = [NSMutableDictionary dictionary];
     [project setValue:@"itest project" forKey:@"title"];
@@ -76,6 +83,11 @@ NSString* __createId;
         STFail(@"%@", error);
     }];
     
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
     while(![self finishRunLoop]) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
@@ -84,12 +96,19 @@ NSString* __createId;
 
 // READ
 -(void)testReadProjects {
+    // login....
+    [authModule login:@"john" password:@"123" success:^(id object) {
     [projects read:^(id responseObject) {
         NSLog(@"%@", responseObject);
         STAssertTrue(0 < [responseObject count], @"should NOT be empty...");
         
         [self setFinishRunLoop:YES];
         
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
     } failure:^(NSError *error) {
         [self setFinishRunLoop:YES];
         STFail(@"%@", error);
@@ -103,6 +122,8 @@ NSString* __createId;
 
 // UPDATE
 -(void)testUpdateProject {
+    // login....
+    [authModule login:@"john" password:@"123" success:^(id object) {
     NSMutableDictionary* updateproject = [NSMutableDictionary dictionary];
     [updateproject setValue:@"updated by a test-case" forKey:@"title"];
     [updateproject setValue:__createId forKey:@"id"];
@@ -121,6 +142,11 @@ NSString* __createId;
         STFail(@"%@", error);
     }];
     
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
     while(![self finishRunLoop]) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
@@ -129,6 +155,8 @@ NSString* __createId;
 // DELETE:
 // awful name... but this needs to run after UPDATE...
 -(void)test_DeleteProject {
+    // login....
+    [authModule login:@"john" password:@"123" success:^(id object) {
     [projects remove:__createId success:^(id responseObject) {
         
         // see if the read is empty now.....
@@ -143,6 +171,11 @@ NSString* __createId;
         
         
         
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
     } failure:^(NSError *error) {
         [self setFinishRunLoop:YES];
         STFail(@"%@", error);

@@ -25,6 +25,7 @@
 @end
 
 @implementation AGRestPipe_TaskTests {
+    id<AGAuthenticationModule> authModule;
     id<AGPipe> tasks;
 }
 
@@ -49,8 +50,12 @@ NSString* __createId;
     // create the 'todo' pipeline;
     
     NSURL* projectsURL = [NSURL URLWithString:@"http://localhost:8080/todo-server/"];
+    
+    AGAuthenticator* authenticator = [AGAuthenticator authenticator];
+    authModule = [authenticator add:@"myModule" baseURL:projectsURL];
+    
     AGPipeline* todo = [AGPipeline pipeline];
-    [todo add:@"tasks" baseURL:projectsURL type:@"REST"];
+    [todo add:@"tasks" baseURL:projectsURL type:@"REST" authModule:authModule];
     
     // get access to the projects pipe
     tasks = [todo get:@"tasks"];
@@ -72,6 +77,8 @@ NSString* __createId;
     //     );
     //     title = "Task 1";
     // }
+    // login....
+    [authModule login:@"john" password:@"123" success:^(id object) {
     NSMutableDictionary* task = [NSMutableDictionary dictionary];
     [task setValue:@"2012-11-26" forKey:@"date"];
     [task setValue:@"created by a test-case" forKey:@"description"];
@@ -90,6 +97,11 @@ NSString* __createId;
         STFail(@"%@", error);
     }];
     
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
     while(![self finishRunLoop]) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
@@ -99,11 +111,18 @@ NSString* __createId;
 
 // READ
 -(void)testReadTasks {
+    // login....
+    [authModule login:@"john" password:@"123" success:^(id object) {
     [tasks read:^(id responseObject) {
         NSLog(@"%@", responseObject);
         STAssertTrue(0 < [responseObject count], @"should NOT be empty...");
         
         [self setFinishRunLoop:YES];
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
     } failure:^(NSError *error) {
         [self setFinishRunLoop:YES];
         STFail(@"%@", error);
@@ -129,6 +148,8 @@ NSString* __createId;
     //     );
     //     title = "Task 1";
     // }
+    // login....
+    [authModule login:@"john" password:@"123" success:^(id object) {
     NSMutableDictionary* updateTask = [NSMutableDictionary dictionary];
     [updateTask setValue:@"1979-02-03" forKey:@"date"];
     [updateTask setValue:@"updated by a test-case" forKey:@"description"];
@@ -146,6 +167,11 @@ NSString* __createId;
         STFail(@"%@", error);
     }];
 
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+
     while(![self finishRunLoop]) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
@@ -154,6 +180,8 @@ NSString* __createId;
 // DELETE:
 // awful name... but this needs to run after UPDATE...
 -(void)test_DeleteTask {
+    // login....
+    [authModule login:@"john" password:@"123" success:^(id object) {
     [tasks remove:__createId success:^(id responseObject) {
 
         // see if the read is empty now.....
@@ -172,9 +200,15 @@ NSString* __createId;
         STFail(@"%@", error);
     }];
 
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
     while(![self finishRunLoop]) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
+        
 }
 
 @end
