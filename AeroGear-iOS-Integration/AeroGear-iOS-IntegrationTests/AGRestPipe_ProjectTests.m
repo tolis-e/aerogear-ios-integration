@@ -46,12 +46,11 @@ NSString* __createId;
     // create the 'todo' pipeline;
 
     NSURL* projectsURL = [NSURL URLWithString:@"http://localhost:8080/todo-server/"];
-    AGPipeline* todo = [AGPipeline pipelineWithPipe:@"projects" baseURL:projectsURL type:@"REST"];
+    AGPipeline* todo = [AGPipeline pipeline];
+    [todo add:@"projects" baseURL:projectsURL type:@"REST"];
     
     // get access to the projects pipe
     projects = [todo get:@"projects"];
-    
-    
 }
 
 -(void)tearDown {
