@@ -16,7 +16,7 @@
  */
 
 #import <SenTestingKit/SenTestingKit.h>
-#import "AeroGear.h"
+#import <AeroGear/AeroGear.h>
 
 @interface AGAbstractBaseTestClass : SenTestCase
 

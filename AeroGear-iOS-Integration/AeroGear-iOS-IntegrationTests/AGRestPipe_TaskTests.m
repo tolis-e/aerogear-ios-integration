@@ -52,10 +52,18 @@ NSString* __createId;
     NSURL* projectsURL = [NSURL URLWithString:@"http://localhost:8080/todo-server/"];
     
     AGAuthenticator* authenticator = [AGAuthenticator authenticator];
-    authModule = [authenticator add:@"myModule" baseURL:projectsURL];
+    authModule = [authenticator auth:^(id<AGAuthConfig> config) {
+        [config name:@"myModule"];
+        [config baseURL:projectsURL];
+    }];
     
     AGPipeline* todo = [AGPipeline pipeline];
-    [todo add:@"tasks" baseURL:projectsURL type:@"REST" authModule:authModule];
+    [todo pipe:^(id<AGPipeConfig> config) {
+        [config name:@"tasks"];
+        [config baseURL:projectsURL];
+        [config type:@"REST"];
+        [config authModule:authModule];
+    }];
     
     // get access to the projects pipe
     tasks = [todo get:@"tasks"];
