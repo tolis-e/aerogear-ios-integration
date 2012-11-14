@@ -21,19 +21,52 @@
 
 @end
 
-@implementation WorldOfWarcraft_PipeTests
+@implementation WorldOfWarcraft_PipeTests {
+    AGPipeline* wowPipeline;
+}
+
+-(void)setUp {
+    [super setUp];
+    
+    // setting up the pipeline for the WoW pipes:
+    NSURL* baseURL = [NSURL URLWithString:@"http://us.battle.net/api/wow"];
+    wowPipeline = [AGPipeline pipeline:baseURL];
+}
+
+-(void)tearDown {
+    [super tearDown];
+}
 
 -(void) testWoWStatus {
-    
-    NSURL* baseURL = [NSURL URLWithString:@"http://us.battle.net/api/wow"];
-    AGPipeline* pipeline = [AGPipeline pipeline:baseURL];
-    [pipeline pipe:^(id<AGPipeConfig> config) {
+    [wowPipeline pipe:^(id<AGPipeConfig> config) {
         [config name:@"status"];
         [config endpoint: @"realm/status"]; //endpoint with no trailing slash
         [config type:@"REST"];
     }];
     
-    id<AGPipe> wowStatusPipe = [pipeline get:@"status"];
+    id<AGPipe> wowStatusPipe = [wowPipeline get:@"status"];
+    
+    [wowStatusPipe read:^(id responseObject) {
+        NSLog(@"%@", responseObject);
+        [self setFinishRunLoop:YES];
+    } failure:^(NSError *error) {
+        NSLog(@"%@", error);
+        [self setFinishRunLoop:YES];
+    }];
+    
+    while(![self finishRunLoop]) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+}
+
+-(void) testWoW_CharacterRace{
+    [wowPipeline pipe:^(id<AGPipeConfig> config) {
+        [config name:@"races"];
+        [config endpoint: @"data/character/races"]; //endpoint with no trailing slash
+        [config type:@"REST"];
+    }];
+    
+    id<AGPipe> wowStatusPipe = [wowPipeline get:@"races"];
     
     [wowStatusPipe read:^(id responseObject) {
         NSLog(@"%@", responseObject);
@@ -48,4 +81,28 @@
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
 }
+
+-(void) testWoWRecipe{
+    [wowPipeline pipe:^(id<AGPipeConfig> config) {
+        [config name:@"recipe33994"];
+        [config endpoint: @"recipe/33994"]; //endpoint with no trailing slash
+        [config type:@"REST"];
+    }];
+    
+    id<AGPipe> wowStatusPipe = [wowPipeline get:@"recipe33994"];
+    
+    [wowStatusPipe read:^(id responseObject) {
+        NSLog(@"%@", responseObject);
+        [self setFinishRunLoop:YES];
+    } failure:^(NSError *error) {
+        NSLog(@"%@", error);
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
+    while(![self finishRunLoop]) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+}
+
 @end
