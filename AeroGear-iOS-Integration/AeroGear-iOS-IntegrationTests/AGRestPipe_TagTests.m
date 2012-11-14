@@ -17,7 +17,6 @@
 
 #import "AGAbstractBaseTestClass.h"
 
-
 @interface AGRestPipe_TagTests : AGAbstractBaseTestClass
 @end
 
