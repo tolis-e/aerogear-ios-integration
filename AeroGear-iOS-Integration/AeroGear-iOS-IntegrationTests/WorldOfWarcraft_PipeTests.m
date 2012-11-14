@@ -36,39 +36,16 @@
     id<AGPipe> wowStatusPipe = [pipeline get:@"status"];
     
     [wowStatusPipe read:^(id responseObject) {
-        NSLog(@"==>data %@", responseObject);
+        NSLog(@"%@", responseObject);
         [self setFinishRunLoop:YES];
     } failure:^(NSError *error) {
-        NSLog(@"==>ERRROR %@", error);
+        NSLog(@"%@", error);
         [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
     }];
     
     while(![self finishRunLoop]) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
 }
--(void) xtest404 {
-    
-    NSURL* baseURL = [NSURL URLWithString:@"https://todo-aerogear.rhcloud.com/todo-server"];
-    AGPipeline* pipeline = [AGPipeline pipeline:baseURL];
-    [pipeline pipe:^(id<AGPipeConfig> config) {
-        [config name:@"projwwwects"];
-        [config type:@"REST"];
-    }];
-    
-    id<AGPipe> wowStatusPipe = [pipeline get:@"projwwwects"];
-    
-    [wowStatusPipe read:^(id responseObject) {
-        NSLog(@"==>data %@", responseObject);
-        [self setFinishRunLoop:YES];
-    } failure:^(NSError *error) {
-        NSLog(@"==>ERRROR %@", error);
-        [self setFinishRunLoop:YES];
-    }];
-    
-    while(![self finishRunLoop]) {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-    }
-}
-
 @end
