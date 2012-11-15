@@ -2,7 +2,7 @@ xcodeproj 'AeroGear-iOS-Integration.xcodeproj'
 
 platform :ios
 
-pod 'AeroGear', :git => 'https://github.com/aerogear/aerogear-ios.git', :commit=> '0314c410fdee655a5b600426c4d33733d91ce709'
+pod 'AeroGear', '1.0.0.M1.20121115'
 
 target 'AeroGear-iOS-IntegrationTests', :exclusive => true do
 	pod 'Kiwi'
