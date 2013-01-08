@@ -17,52 +17,45 @@
 
 #import "AGAbstractBaseTestClass.h"
 
+
 @interface AGRestPipe_TagTests : AGAbstractBaseTestClass
 @end
 
 @implementation AGRestPipe_TagTests {
-    id<AGAuthenticationModule> authModule;
-    id<AGPipe> tags;
+    id<AGAuthenticationModule> _authModule;
+    id<AGPipe> _tags;
 }
 
 //hack:
 NSString* __createId;
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        // base inits:
-    }
-    return self;
-}
-
-
 -(void)setUp {
     [super setUp];
     
-    // setting up the pipeline and the pipe for the Tags:
-    // basic setup, for every test:
-    // create the 'todo' pipeline;
+    // setting up authenticator, pipeline and the pipe for the projects:
+    // basic setup, for every test
     
     NSURL* projectsURL = [NSURL URLWithString:@"http://localhost:8080/todo-server/"];
     
+    // create the authenticator
     AGAuthenticator* authenticator = [AGAuthenticator authenticator];
-    authModule = [authenticator auth:^(id<AGAuthConfig> config) {
-        [config name:@"myModule"];
-        [config baseURL:projectsURL];
+    _authModule = [authenticator auth:^(id<AGAuthConfig> config) {
+        [config setName:@"myModule"];
+        [config setBaseURL:projectsURL];
     }];
     
-    AGPipeline* todo = [AGPipeline pipeline];
+    // set up the pipeline for the projects
+    AGPipeline* todo = [AGPipeline pipelineWithBaseURL:projectsURL];
     [todo pipe:^(id<AGPipeConfig> config) {
-        [config name:@"tags"];
-        [config baseURL:projectsURL];
-        [config type:@"REST"];
-        [config authModule:authModule];
+        [config setName:@"tags"];
+        [config setBaseURL:projectsURL];
+        [config setAuthModule:_authModule];
+        [config setType:@"REST"];
+        [config setRecordId:@"id"];
     }];
     
-    // get access to the projects pipe
-    tags = [todo get:@"tags"];
+    // get access to the tags pipe
+    _tags = [todo pipeWithName:@"tags"];
 }
 
 -(void)tearDown {
@@ -71,25 +64,27 @@ NSString* __createId;
 
 // CREATE
 -(void)testCreateTag {
-    
     // login....
-    [authModule login:@"john" password:@"123" success:^(id object) {
-    // a new tag object, structure looks like:
-    NSMutableDictionary* tag = [NSMutableDictionary dictionary];
-    [tag setValue:@"itest tag" forKey:@"title"];
-    
-    [tags save:tag success:^(id responseObject) {
-        STAssertEqualObjects(@"itest tag", [responseObject valueForKey:@"title"], @"did create tag");
+    [_authModule login:@"john" password:@"123" success:^(id object) {
 
-        __createId = [[responseObject valueForKey:@"id"] stringValue];
-
-        [self setFinishRunLoop:YES];
+        // a new tag object, structure looks like:
+        NSMutableDictionary* tag = [NSMutableDictionary dictionary];
+        [tag setValue:@"itest tag" forKey:@"title"];
         
-    } failure:^(NSError *error) {
-        [self setFinishRunLoop:YES];
-        STFail(@"%@", error);
-    }];
-
+        // save tag
+        [_tags save:tag success:^(id responseObject) {
+            STAssertEqualObjects(@"itest tag", [responseObject valueForKey:@"title"], @"did create tag");
+            
+            // store the id for this newly created object
+            __createId = [[responseObject valueForKey:@"id"] stringValue];
+            
+            [self setFinishRunLoop:YES];
+            
+        } failure:^(NSError *error) {
+            [self setFinishRunLoop:YES];
+            STFail(@"%@", error);
+        }];
+        
     } failure:^(NSError *error) {
         [self setFinishRunLoop:YES];
         STFail(@"%@", error);
@@ -100,22 +95,23 @@ NSString* __createId;
     }
 }
 
-
 // READ
 -(void)testReadTags {
     // login....
-    [authModule login:@"john" password:@"123" success:^(id object) {
-    [tags read:^(id responseObject) {
-        NSLog(@"%@", responseObject);
-        STAssertTrue(0 < [responseObject count], @"should NOT be empty...");
-
-        [self setFinishRunLoop:YES];
+    [_authModule login:@"john" password:@"123" success:^(id object) {
         
-    } failure:^(NSError *error) {
-        [self setFinishRunLoop:YES];
-        STFail(@"%@", error);
-    }];
-
+        // read all tags
+        [_tags read:^(id responseObject) {
+            NSLog(@"%@", responseObject);
+            STAssertTrue(0 < [responseObject count], @"should NOT be empty...");
+            
+            [self setFinishRunLoop:YES];
+            
+        } failure:^(NSError *error) {
+            [self setFinishRunLoop:YES];
+            STFail(@"%@", error);
+        }];
+        
     } failure:^(NSError *error) {
         [self setFinishRunLoop:YES];
         STFail(@"%@", error);
@@ -124,36 +120,33 @@ NSString* __createId;
     while(![self finishRunLoop]) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
-    
 }
 
 // UPDATE
 -(void)testUpdateTag {
     // login....
-    [authModule login:@"john" password:@"123" success:^(id object) {
-    NSMutableDictionary* updateTag = [NSMutableDictionary dictionary];
-    [updateTag setValue:@"updated by a test-case" forKey:@"title"];
-    [updateTag setValue:__createId forKey:@"id"];
-    
-    
-    [tags save:updateTag success:^(id responseObject) {
-        STAssertEqualObjects(__createId, [[responseObject valueForKey:@"id"] stringValue], @"did create tag");
+    [_authModule login:@"john" password:@"123" success:^(id object) {
         
+        NSMutableDictionary* tag = [NSMutableDictionary dictionary];
+        [tag setObject:@"updated by a test-case" forKey:@"title"];
+        [tag setValue:__createId forKey:@"id"];        
         
-        __createId = [[responseObject valueForKey:@"id"] stringValue];
-        
-        [self setFinishRunLoop:YES];
+        // save the updated tag on server
+        [_tags save:tag success:^(id responseObject) {
+            STAssertEqualObjects(__createId,
+                                 [[responseObject valueForKey:@"id"] stringValue], @"did update tag");
+            
+            [self setFinishRunLoop:YES];
+            
+        } failure:^(NSError *error) {
+            [self setFinishRunLoop:YES];
+            STFail(@"%@", error);
+        }];
         
     } failure:^(NSError *error) {
         [self setFinishRunLoop:YES];
         STFail(@"%@", error);
     }];
-
-    } failure:^(NSError *error) {
-        [self setFinishRunLoop:YES];
-        STFail(@"%@", error);
-    }];
-    
     
     while(![self finishRunLoop]) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
@@ -164,26 +157,29 @@ NSString* __createId;
 // awful name... but this needs to run after UPDATE...
 -(void)test_DeleteTag {
     // login....
-    [authModule login:@"john" password:@"123" success:^(id object) {
-    [tags remove:__createId success:^(id responseObject) {
+    [_authModule login:@"john" password:@"123" success:^(id object) {
         
-        // see if the read is empty now.....
-        [tags read:^(id responseObject) {
-           STAssertTrue(0 == [responseObject count], @"should be empty...");
+        NSMutableDictionary* tag = [NSMutableDictionary dictionary];
+        [tag setValue:__createId forKey:@"id"];
+
+        // remove tag
+        [_tags remove:tag success:^(id responseObject) {
             
-            [self setFinishRunLoop:YES];
+            // see if the read is empty now.....
+            [_tags read:^(id responseObject) {
+                STAssertTrue(0 == [responseObject count], @"should be empty...");
+                
+                [self setFinishRunLoop:YES];
+                
+            } failure:^(NSError *error) {
+                STFail(@"%@", error);
+            }];
             
         } failure:^(NSError *error) {
+            [self setFinishRunLoop:YES];
             STFail(@"%@", error);
         }];
         
-        
-        
-    } failure:^(NSError *error) {
-        [self setFinishRunLoop:YES];
-        STFail(@"%@", error);
-    }];
-
     } failure:^(NSError *error) {
         [self setFinishRunLoop:YES];
         STFail(@"%@", error);

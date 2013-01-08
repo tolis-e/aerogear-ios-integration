@@ -29,7 +29,7 @@
     
     // setting up the pipeline for the WoW pipes:
     NSURL* baseURL = [NSURL URLWithString:@"https://alpha-api.app.net/stream/0/"];
-    appNetPipeline = [AGPipeline pipeline:baseURL];
+    appNetPipeline = [AGPipeline pipelineWithBaseURL:baseURL];
 }
 
 -(void)tearDown {
@@ -38,12 +38,12 @@
 
 -(void) testAppNetPipeline {
     [appNetPipeline pipe:^(id<AGPipeConfig> config) {
-        [config name:@"globalStream"];
-        [config endpoint: @"posts/stream/global"]; //endpoint with no trailing slash
-        [config type:@"REST"];
+        [config setName:@"globalStream"];
+        [config setEndpoint: @"posts/stream/global"]; //endpoint with no trailing slash
+        [config setType:@"REST"];
     }];
     
-    id<AGPipe> wowStatusPipe = [appNetPipeline get:@"globalStream"];
+    id<AGPipe> wowStatusPipe = [appNetPipeline pipeWithName:@"globalStream"];
     
     [wowStatusPipe read:^(id responseObject) {
         NSLog(@"%@", responseObject);

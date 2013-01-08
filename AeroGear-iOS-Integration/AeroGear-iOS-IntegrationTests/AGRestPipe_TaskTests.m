@@ -17,56 +17,44 @@
 
 #import "AGAbstractBaseTestClass.h"
 
-@interface AGRestPipe_ProjectTests : AGAbstractBaseTestClass
-
-@end
-
 @interface AGRestPipe_TaskTests : AGAbstractBaseTestClass
 @end
 
 @implementation AGRestPipe_TaskTests {
-    id<AGAuthenticationModule> authModule;
-    id<AGPipe> tasks;
+    id<AGAuthenticationModule> _authModule;
+    id<AGPipe> _tasks;
 }
 
 //hack:
 NSString* __createId;
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        // base inits:
-    }
-    return self;
-}
-
-
 -(void)setUp {
     [super setUp];
     
-    // setting up the pipeline and the pipe for the Tasks:
-    // basic setup, for every test:
-    // create the 'todo' pipeline;
+    // setting up authenticator, pipeline and the pipe for the projects:
+    // basic setup, for every test
     
     NSURL* projectsURL = [NSURL URLWithString:@"http://localhost:8080/todo-server/"];
     
+    // create the authenticator
     AGAuthenticator* authenticator = [AGAuthenticator authenticator];
-    authModule = [authenticator auth:^(id<AGAuthConfig> config) {
-        [config name:@"myModule"];
-        [config baseURL:projectsURL];
+    _authModule = [authenticator auth:^(id<AGAuthConfig> config) {
+        [config setName:@"myModule"];
+        [config setBaseURL:projectsURL];
     }];
     
+    // set up the pipeline for the tasks
     AGPipeline* todo = [AGPipeline pipeline];
     [todo pipe:^(id<AGPipeConfig> config) {
-        [config name:@"tasks"];
-        [config baseURL:projectsURL];
-        [config type:@"REST"];
-        [config authModule:authModule];
+        [config setName:@"tasks"];
+        [config setBaseURL:projectsURL];
+        [config setAuthModule:_authModule];
+        [config setType:@"REST"];
+        [config setRecordId:@"id"];        
     }];
     
-    // get access to the projects pipe
-    tasks = [todo get:@"tasks"];
+    // get access to the tasks pipe
+    _tasks = [todo pipeWithName:@"tasks"];
 }
 
 -(void)tearDown {
@@ -76,6 +64,9 @@ NSString* __createId;
 // CREATE
 -(void)testCreateTask {
     
+    // login....
+    [_authModule login:@"john" password:@"123" success:^(id object) {
+   
     // a new task object, structure looks like:
     // {
     //     date = "2012-11-26";
@@ -85,17 +76,16 @@ NSString* __createId;
     //     );
     //     title = "Task 1";
     // }
-    // login....
-    [authModule login:@"john" password:@"123" success:^(id object) {
     NSMutableDictionary* task = [NSMutableDictionary dictionary];
     [task setValue:@"2012-11-26" forKey:@"date"];
     [task setValue:@"created by a test-case" forKey:@"description"];
     [task setValue:@"itest task" forKey:@"title"];
     
-
-    [tasks save:task success:^(id responseObject) {
+    // save task
+    [_tasks save:task success:^(id responseObject) {
         STAssertEqualObjects(@"itest task", [responseObject valueForKey:@"title"], @"did create task");
 
+        // store the id for this newly created object        
         __createId = [[responseObject valueForKey:@"id"] stringValue];
         
         [self setFinishRunLoop:YES];
@@ -113,15 +103,15 @@ NSString* __createId;
     while(![self finishRunLoop]) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
-    
 }
-
 
 // READ
 -(void)testReadTasks {
     // login....
-    [authModule login:@"john" password:@"123" success:^(id object) {
-    [tasks read:^(id responseObject) {
+    [_authModule login:@"john" password:@"123" success:^(id object) {
+        
+    // read all tasks
+    [_tasks read:^(id responseObject) {
         NSLog(@"%@", responseObject);
         STAssertTrue(0 < [responseObject count], @"should NOT be empty...");
         
@@ -136,17 +126,16 @@ NSString* __createId;
         STFail(@"%@", error);
     }];
     
-    
     while(![self finishRunLoop]) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
-    
 }
 
 // UPDATE
 -(void)testUpdateTask {
-    
-    
+    // login....
+    [_authModule login:@"john" password:@"123" success:^(id object) {
+
     // a new task object, structure looks like:
     // {
     //     date = "2012-11-26";
@@ -156,18 +145,15 @@ NSString* __createId;
     //     );
     //     title = "Task 1";
     // }
-    // login....
-    [authModule login:@"john" password:@"123" success:^(id object) {
-    NSMutableDictionary* updateTask = [NSMutableDictionary dictionary];
-    [updateTask setValue:@"1979-02-03" forKey:@"date"];
-    [updateTask setValue:@"updated by a test-case" forKey:@"description"];
-    [updateTask setValue:__createId forKey:@"id"];
-
+    NSMutableDictionary* task = [NSMutableDictionary dictionary];
+    [task setValue:@"1979-02-03" forKey:@"date"];
+    [task setValue:@"updated by a test-case" forKey:@"description"];
+    [task setValue:__createId forKey:@"id"];
     
-    [tasks save:updateTask success:^(id responseObject) {
-        STAssertEqualObjects(__createId, [[responseObject valueForKey:@"id"] stringValue], @"did create task");
-        __createId = [[responseObject valueForKey:@"id"] stringValue];
-        
+    // save the updated task on server        
+    [_tasks save:task success:^(id responseObject) {
+        STAssertEqualObjects(__createId, [[responseObject valueForKey:@"id"] stringValue], @"did update task");
+
         [self setFinishRunLoop:YES];
         
     } failure:^(NSError *error) {
@@ -189,11 +175,16 @@ NSString* __createId;
 // awful name... but this needs to run after UPDATE...
 -(void)test_DeleteTask {
     // login....
-    [authModule login:@"john" password:@"123" success:^(id object) {
-    [tasks remove:__createId success:^(id responseObject) {
+    [_authModule login:@"john" password:@"123" success:^(id object) {
+
+    NSMutableDictionary* task = [NSMutableDictionary dictionary];
+    [task setValue:__createId forKey:@"id"];
+        
+    // remove task
+    [_tasks remove:task success:^(id responseObject) {
 
         // see if the read is empty now.....
-        [tasks read:^(id responseObject) {
+        [_tasks read:^(id responseObject) {
             STAssertTrue(0 == [responseObject count], @"should be empty...");
             
             [self setFinishRunLoop:YES];

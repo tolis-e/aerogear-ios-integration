@@ -22,48 +22,40 @@
 @end
 
 @implementation AGRestPipe_ProjectTests {
-    id<AGAuthenticationModule> authModule;
-    id<AGPipe> projects;
+    id<AGAuthenticationModule> _authModule;
+    id<AGPipe> _projects;
 }
 
 //hack:
 NSString* __createId;
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        // base inits:
-    }
-    return self;
-}
-
-
 -(void)setUp {
     [super setUp];
     
-    // setting up the pipeline and the pipe for the projects:
-    // basic setup, for every test:
-    // create the 'todo' pipeline;
+    // setting up authenticator, pipeline and the pipe for the projects:
+    // basic setup, for every test
 
     NSURL* projectsURL = [NSURL URLWithString:@"http://localhost:8080/todo-server/"];
     
+    // create the authenticator
     AGAuthenticator* authenticator = [AGAuthenticator authenticator];
-    authModule = [authenticator auth:^(id<AGAuthConfig> config) {
-        [config name:@"myModule"];
-        [config baseURL:projectsURL];
+    _authModule = [authenticator auth:^(id<AGAuthConfig> config) {
+        [config setName:@"myModule"];
+        [config setBaseURL:projectsURL];
     }];
     
-    AGPipeline* todo = [AGPipeline pipeline:projectsURL];
+    // set up the pipeline for the projects
+    AGPipeline* todo = [AGPipeline pipelineWithBaseURL:projectsURL];
     [todo pipe:^(id<AGPipeConfig> config) {
-        [config name:@"projects"];
-        [config baseURL:projectsURL];
-        [config type:@"REST"];
-        [config authModule:authModule];
+        [config setName:@"projects"];
+        [config setBaseURL:projectsURL];
+        [config setAuthModule:_authModule];
+        [config setType:@"REST"];
+        [config setRecordId:@"id"];
     }];
     
     // get access to the projects pipe
-    projects = [todo get:@"projects"];
+    _projects = [todo pipeWithName:@"projects"];
 }
 
 -(void)tearDown {
@@ -72,16 +64,18 @@ NSString* __createId;
 
 // CREATE
 -(void)testCreateProject {
-    
     // login....
-    [authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@"john" password:@"123" success:^(id object) {
+
     // a new project object, structure looks like:
     NSMutableDictionary* project = [NSMutableDictionary dictionary];
     [project setValue:@"itest project" forKey:@"title"];
     
-    [projects save:project success:^(id responseObject) {
+    // save project
+    [_projects save:project success:^(id responseObject) {
         STAssertEqualObjects(@"itest project", [responseObject valueForKey:@"title"], @"did create project");
         
+        // store the id for this newly created object
         __createId = [[responseObject valueForKey:@"id"] stringValue];
         
         [self setFinishRunLoop:YES];
@@ -105,8 +99,10 @@ NSString* __createId;
 // READ
 -(void)testReadProjects {
     // login....
-    [authModule login:@"john" password:@"123" success:^(id object) {
-    [projects read:^(id responseObject) {
+    [_authModule login:@"john" password:@"123" success:^(id object) {
+    
+    // read all projects
+    [_projects read:^(id responseObject) {
         NSLog(@"%@", responseObject);
         STAssertTrue(0 < [responseObject count], @"should NOT be empty...");
         
@@ -125,24 +121,22 @@ NSString* __createId;
     while(![self finishRunLoop]) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
-    
 }
 
 // UPDATE
 -(void)testUpdateProject {
     // login....
-    [authModule login:@"john" password:@"123" success:^(id object) {
-    NSMutableDictionary* updateproject = [NSMutableDictionary dictionary];
-    [updateproject setValue:@"updated by a test-case" forKey:@"title"];
-    [updateproject setValue:__createId forKey:@"id"];
-    
-    
-    [projects save:updateproject success:^(id responseObject) {
-        STAssertEqualObjects(__createId, [[responseObject valueForKey:@"id"] stringValue], @"did create project");
-        
-        
-        __createId = [[responseObject valueForKey:@"id"] stringValue];
-        
+    [_authModule login:@"john" password:@"123" success:^(id object) {
+
+    NSMutableDictionary* project = [NSMutableDictionary dictionary];
+    [project setValue:@"updated by a test-case" forKey:@"title"];
+    [project setValue:__createId forKey:@"id"];
+
+    // save the updated project on server
+    [_projects save:project success:^(id responseObject) {
+        STAssertEqualObjects(__createId,
+                             [[responseObject valueForKey:@"id"] stringValue], @"did update project");
+
         [self setFinishRunLoop:YES];
         
     } failure:^(NSError *error) {
@@ -164,11 +158,17 @@ NSString* __createId;
 // awful name... but this needs to run after UPDATE...
 -(void)test_DeleteProject {
     // login....
-    [authModule login:@"john" password:@"123" success:^(id object) {
-    [projects remove:__createId success:^(id responseObject) {
+    [_authModule login:@"john" password:@"123" success:^(id object) {
+        
+    NSMutableDictionary* project = [NSMutableDictionary dictionary];
+    [project setValue:@"updated by a test-case" forKey:@"title"];
+    [project setValue:__createId forKey:@"id"];
+        
+    // remove project
+    [_projects remove:project success:^(id responseObject) {
         
         // see if the read is empty now.....
-        [projects read:^(id responseObject) {
+        [_projects read:^(id responseObject) {
             STAssertTrue(0 == [responseObject count], @"should be empty...");
             
             [self setFinishRunLoop:YES];
@@ -176,8 +176,6 @@ NSString* __createId;
         } failure:^(NSError *error) {
             STFail(@"%@", error);
         }];
-        
-        
         
     } failure:^(NSError *error) {
         [self setFinishRunLoop:YES];

@@ -30,7 +30,7 @@
     
     // setting up the pipeline for the WoW pipes:
     NSURL* baseURL = [NSURL URLWithString:@"http://us.battle.net/api/wow"];
-    wowPipeline = [AGPipeline pipeline:baseURL];
+    wowPipeline = [AGPipeline pipelineWithBaseURL:baseURL];
 }
 
 -(void)tearDown {
@@ -39,12 +39,12 @@
 
 -(void) testWoWStatus {
     [wowPipeline pipe:^(id<AGPipeConfig> config) {
-        [config name:@"status"];
-        [config endpoint: @"realm/status"]; //endpoint with no trailing slash
-        [config type:@"REST"];
+        [config setName:@"status"];
+        [config setEndpoint: @"realm/status"]; //endpoint with no trailing slash
+        [config setType:@"REST"];
     }];
     
-    id<AGPipe> wowStatusPipe = [wowPipeline get:@"status"];
+    id<AGPipe> wowStatusPipe = [wowPipeline pipeWithName:@"status"];
     
     [wowStatusPipe read:^(id responseObject) {
         NSLog(@"%@", responseObject);
@@ -61,12 +61,12 @@
 
 -(void) testWoW_CharacterRace{
     [wowPipeline pipe:^(id<AGPipeConfig> config) {
-        [config name:@"races"];
-        [config endpoint: @"data/character/races"]; //endpoint with no trailing slash
-        [config type:@"REST"];
+        [config setName:@"races"];
+        [config setEndpoint: @"data/character/races"]; //endpoint with no trailing slash
+        [config setType:@"REST"];
     }];
     
-    id<AGPipe> wowStatusPipe = [wowPipeline get:@"races"];
+    id<AGPipe> wowStatusPipe = [wowPipeline pipeWithName:@"races"];
     
     [wowStatusPipe read:^(id responseObject) {
         NSLog(@"%@", responseObject);
@@ -84,12 +84,12 @@
 
 -(void) testWoWRecipe{
     [wowPipeline pipe:^(id<AGPipeConfig> config) {
-        [config name:@"recipe33994"];
-        [config endpoint: @"recipe/33994"]; //endpoint with no trailing slash
-        [config type:@"REST"];
+        [config setName:@"recipe33994"];
+        [config setEndpoint: @"recipe/33994"]; //endpoint with no trailing slash
+        [config setType:@"REST"];
     }];
     
-    id<AGPipe> wowStatusPipe = [wowPipeline get:@"recipe33994"];
+    id<AGPipe> wowStatusPipe = [wowPipeline pipeWithName:@"recipe33994"];
     
     [wowStatusPipe read:^(id responseObject) {
         NSLog(@"%@", responseObject);
