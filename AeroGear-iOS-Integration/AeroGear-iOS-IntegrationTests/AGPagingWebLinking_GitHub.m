@@ -31,6 +31,7 @@
     
     _gists = [ghPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"gists"];
+        [config setPreviousIdentifier:@"prev"];        
     }];
 }
 
@@ -101,7 +102,7 @@
     __block NSMutableArray *pagedResultSet;
 
     // fetch the first page
-    [_gists readWithParams:@{@"page" : @"0", @"per_page" : @"1"} success:^(id responseObject) {
+    [_gists readWithParams:@{@"page" : @"2", @"per_page" : @"1"} success:^(id responseObject) {
         pagedResultSet = responseObject;  // page 1
         
         // use to hold this paged results so
