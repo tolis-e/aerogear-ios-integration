@@ -120,6 +120,33 @@ NSString* __createId;
     }
 }
 
+-(void)testReadSingleTag {
+    // login....
+    [_authModule login:@"john" password:@"123" success:^(id object) {
+        
+        // save the updated project on server
+        [_tags read:__createId success:^(id responseObject) {
+            STAssertEqualObjects(__createId,
+                                 [[responseObject valueForKey:@"id"] stringValue], @"did read single project");
+            
+            [self setFinishRunLoop:YES];
+            
+        } failure:^(NSError *error) {
+            [self setFinishRunLoop:YES];
+            STFail(@"%@", error);
+        }];
+        
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
+    while(![self finishRunLoop]) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+    
+}
+
 // UPDATE
 -(void)testUpdateTag {
     // login....
