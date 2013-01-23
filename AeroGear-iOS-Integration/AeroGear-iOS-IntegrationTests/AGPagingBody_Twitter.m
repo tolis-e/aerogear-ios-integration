@@ -31,10 +31,10 @@
     
     _tweets = [twPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"search.json"];
-
+        
         [config setNextIdentifier:@"next_page"];
         [config setPreviousIdentifier:@"previous_page"];
-
+        
         [config setMetadataLocation:@"body"];
     }];
 }
@@ -54,9 +54,8 @@
         
         // move to the next page
         [pagedResultSet next:^(id responseObject) {
-            pagedResultSet = responseObject;
             
-            STAssertFalse([page1 isEqualToArray:pagedResultSet], @"results should not match.");
+            STAssertFalse([page1 isEqualToArray:responseObject], @"results should not match.");
             
             [self setFinishRunLoop:YES];
             
@@ -84,13 +83,17 @@
         
         // move back to an invalid page
         [pagedResultSet previous:^(id responseObject) {
-            pagedResultSet = responseObject;  // invalid page
             [self setFinishRunLoop:YES];
             
             STFail(@"should not have called");
             
         } failure:^(NSError *error) {
             [self setFinishRunLoop:YES];
+            
+            // THIS IS actually called.
+            // Is that expected (e.g. by the twitter API)
+            
+            STFail(@"%@", error);
         }];
     } failure:^(NSError *error) {
         [self setFinishRunLoop:YES];
@@ -109,7 +112,7 @@
     // fetch the first page
     [_tweets readWithParams:@{@"q" : @"aerogear", @"page" : @"1", @"rpp" : @"1"} success:^(id responseObject) {
         pagedResultSet = responseObject;  // page 1
-       
+        
         // use to hold the first page results so
         // that can be tested against when we
         // move backwards down in the test
@@ -117,13 +120,11 @@
         
         // move to the second page
         [pagedResultSet next:^(id responseObject) {
-            pagedResultSet = responseObject;  // page 2
             
             // move backwards (aka. page 1)
             [pagedResultSet previous:^(id responseObject) {
-                pagedResultSet = responseObject;  // page 1
                 
-                NSArray* page1_ret = [self removeAndWrapResult:[pagedResultSet objectAtIndex:0]];
+                NSArray* page1_ret = [self removeAndWrapResult:[responseObject objectAtIndex:0]];
                 STAssertEqualObjects(page1, page1_ret, @"results must match.");
                 
                 [self setFinishRunLoop:YES];

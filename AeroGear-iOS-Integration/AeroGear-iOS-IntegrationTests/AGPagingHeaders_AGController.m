@@ -52,12 +52,11 @@
         pagedResultSet = responseObject;  // page 1
         
         NSMutableArray *page1 = [pagedResultSet copy];
-
+        
         // move to the next page
         [pagedResultSet next:^(id responseObject) {
-            pagedResultSet = responseObject;
-
-            STAssertFalse([page1 isEqualToArray:pagedResultSet], @"results should not match.");
+            
+            STAssertFalse([page1 isEqualToArray:responseObject], @"results should not match.");
             
             [self setFinishRunLoop:YES];
             
@@ -78,20 +77,24 @@
 
 -(void)testPreviousFromFirstPage {
     __block NSMutableArray *pagedResultSet;
-
+    
     // fetch the first page
     [_cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : [NSNumber numberWithInt:1]} success:^(id responseObject) {
         pagedResultSet = responseObject;  // page 1
         
         // move back to an invalid page
         [pagedResultSet previous:^(id responseObject) {
-            pagedResultSet = responseObject;  // invalid page
             [self setFinishRunLoop:YES];
             
             STFail(@"should not have called");
             
         } failure:^(NSError *error) {
             [self setFinishRunLoop:YES];
+            STFail(@"%@", error);
+            
+            // THIS fails, I guess this failure is expected. .....  check if that is the desird result...
+            
+            
         }];
     } failure:^(NSError *error) {
         [self setFinishRunLoop:YES];
@@ -118,13 +121,11 @@
         
         // move to the second page
         [pagedResultSet next:^(id responseObject) {
-            pagedResultSet = responseObject;  // page 2
             
             // move backwards (aka. page 1)
             [pagedResultSet previous:^(id responseObject) {
-                pagedResultSet = responseObject;  // page 1
                 
-                STAssertEqualObjects(page1, pagedResultSet, @"results must match.");
+                STAssertEqualObjects(page1, responseObject, @"results must match.");
                 
                 [self setFinishRunLoop:YES];
             } failure:^(NSError *error) {
@@ -147,6 +148,3 @@
 }
 
 @end
-
-
-

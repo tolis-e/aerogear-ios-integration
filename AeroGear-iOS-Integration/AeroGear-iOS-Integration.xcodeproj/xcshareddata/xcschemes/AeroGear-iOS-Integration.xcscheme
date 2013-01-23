@@ -59,12 +59,6 @@
                <Test
                   Identifier = "AGPagingWebLinking_Twitter">
                </Test>
-               <Test
-                  Identifier = "AGPagingHeaders_AGController">
-               </Test>
-               <Test
-                  Identifier = "AGPagingBody_Twitter">
-               </Test>
             </SkippedTests>
          </TestableReference>
       </Testables>

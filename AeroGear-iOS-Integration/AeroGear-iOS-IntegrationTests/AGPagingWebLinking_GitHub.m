@@ -31,7 +31,7 @@
     
     _gists = [ghPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"gists"];
-        [config setPreviousIdentifier:@"prev"];        
+        [config setPreviousIdentifier:@"prev"];
     }];
 }
 
@@ -50,9 +50,9 @@
         
         // move to the next page
         [pagedResultSet next:^(id responseObject) {
-            pagedResultSet = responseObject;
+            STAssertFalse([page1 isEqualToArray:responseObject], @"results should not match.");
             
-            STAssertFalse([page1 isEqualToArray:pagedResultSet], @"results should not match.");
+            // TODO. check if the desired number of items are here (e.g. one GIST object)
             
             [self setFinishRunLoop:YES];
             
@@ -80,9 +80,11 @@
         
         // move back from the first page
         [pagedResultSet previous:^(id responseObject) {
-            pagedResultSet = responseObject;  // page 2
             
-            [self setFinishRunLoop:YES];            
+            // TODO have in mind... there the applied "query" would be nil (since no 'prev' link is there).
+            // Does the paging work? E.g. do we get nothing ? do we get all ? Is that result also expected...
+            
+            [self setFinishRunLoop:YES];
         } failure:^(NSError *error) {
             [self setFinishRunLoop:YES];
             STFail(@"%@", error);
@@ -100,9 +102,9 @@
 
 -(void)testMoveNextAndPrevious {
     __block NSMutableArray *pagedResultSet;
-
+    
     // fetch the first page
-    [_gists readWithParams:@{@"page" : @"2", @"per_page" : @"1"} success:^(id responseObject) {
+    [_gists readWithParams:@{@"page" : @"0", @"per_page" : @"1"} success:^(id responseObject) {
         pagedResultSet = responseObject;  // page 1
         
         // use to hold this paged results so
@@ -112,13 +114,14 @@
         
         // move to the second page
         [pagedResultSet next:^(id responseObject) {
-            pagedResultSet = responseObject;  // page 2
             
             // move backwards (aka. page 1)
             [pagedResultSet previous:^(id responseObject) {
-                pagedResultSet = responseObject;  // page 1
                 
-                STAssertEqualObjects(page1, pagedResultSet, @"results must match.");
+                STAssertEqualObjects(page1, responseObject, @"results must match.");
+                
+                // TODO: you could also check the ID JSON key, on the two responses (there should be only one object)
+                
                 
                 [self setFinishRunLoop:YES];
             } failure:^(NSError *error) {
@@ -141,6 +144,4 @@
 }
 
 @end
-
-
 
