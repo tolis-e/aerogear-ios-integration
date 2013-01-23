@@ -31,11 +31,8 @@
     
     _cars = [agPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"cars-custom"];
-        
-        // headers for pagination as used by the controller
         [config setNextIdentifier:@"AG-Links-Next"];
         [config setPreviousIdentifier:@"AG-Links-Previous"];
-        
         [config setMetadataLocation:@"header"];
     }];
 }
@@ -51,12 +48,15 @@
     [_cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : [NSNumber numberWithInt:1]} success:^(id responseObject) {
         pagedResultSet = responseObject;  // page 1
         
-        NSMutableArray *page1 = [pagedResultSet copy];
+        // hold the "car id" from the first page, so that
+        // we can match with the result when we move
+        // to the next page down in the test.
+        NSString *car_id = [self extractCarId:responseObject];
         
         // move to the next page
         [pagedResultSet next:^(id responseObject) {
             
-            STAssertFalse([page1 isEqualToArray:responseObject], @"results should not match.");
+            STAssertFalse([car_id isEqualToString:[self extractCarId:responseObject]], @"id's should not match.");
             
             [self setFinishRunLoop:YES];
             
@@ -90,11 +90,17 @@
             
         } failure:^(NSError *error) {
             [self setFinishRunLoop:YES];
-            STFail(@"%@", error);
-            
-            // THIS fails, I guess this failure is expected. .....  check if that is the desird result...
-            
-            
+
+            // Note: "failure block" was called here
+            // because we were at the first page and we
+            // requested to go previous, that is to a non
+            // existing page ("AG-Links-Previous" indentifier
+            // was missing from the headers response and we
+            // got a 400 http error).
+            //
+            // Note that this is not always the case, cause some
+            // remote apis can send back either an empty list or
+            // list with results, instead of throwing an error(see GitHub testcase)
         }];
     } failure:^(NSError *error) {
         [self setFinishRunLoop:YES];
@@ -114,10 +120,10 @@
     [_cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : [NSNumber numberWithInt:1]} success:^(id responseObject) {
         pagedResultSet = responseObject;  // page 1
         
-        // use to hold the first page results so
-        // that can be tested against when we
-        // move backwards down in the test
-        NSMutableArray *page1 = [pagedResultSet copy];
+        // hold the "car id" from the first page, so that
+        // we can match with the result when we move
+        // to the next page down in the test.
+        NSString *car_id = [self extractCarId:responseObject];
         
         // move to the second page
         [pagedResultSet next:^(id responseObject) {
@@ -125,7 +131,7 @@
             // move backwards (aka. page 1)
             [pagedResultSet previous:^(id responseObject) {
                 
-                STAssertEqualObjects(page1, responseObject, @"results must match.");
+                STAssertEqualObjects(car_id, [self extractCarId:responseObject], @"id's must match.");
                 
                 [self setFinishRunLoop:YES];
             } failure:^(NSError *error) {
@@ -145,6 +151,11 @@
     while(![self finishRunLoop]) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
+}
+
+// helper method to extract the "car id" from the result set
+-(NSString*)extractCarId:(NSArray*) responseObject {
+    return [[[responseObject objectAtIndex:0] objectForKey:@"id"] stringValue];
 }
 
 @end

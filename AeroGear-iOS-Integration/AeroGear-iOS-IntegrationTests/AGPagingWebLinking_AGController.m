@@ -15,27 +15,22 @@
 
 #import "AGAbstractBaseTestClass.h"
 
-@interface AGPagingBody_Twitter : AGAbstractBaseTestClass
+@interface AGPagingWebLinking_AGController : AGAbstractBaseTestClass
 @end
 
-@implementation AGPagingBody_Twitter {
-    id<AGPipe> _tweets;
+@implementation AGPagingWebLinking_AGController {
+    id<AGPipe> _cars;
 }
 
 -(void)setUp {
     [super setUp];
     
-    // setting up the pipeline for the Twitter pipe
-    NSURL* baseURL = [NSURL URLWithString:@"http://search.twitter.com/"];
-    AGPipeline* twPipeline = [AGPipeline pipelineWithBaseURL:baseURL];
+    // setting up the pipeline for the AeroGear Controller pipe
+    NSURL* baseURL = [NSURL URLWithString:@"http://controllerdemo-danbev.rhcloud.com/aerogear-controller-demo"];
+    AGPipeline* agPipeline = [AGPipeline pipelineWithBaseURL:baseURL];
     
-    _tweets = [twPipeline pipe:^(id<AGPipeConfig> config) {
-        [config setName:@"search.json"];
-        
-        [config setNextIdentifier:@"next_page"];
-        [config setPreviousIdentifier:@"previous_page"];
-        
-        [config setMetadataLocation:@"body"];
+    _cars = [agPipeline pipe:^(id<AGPipeConfig> config) {
+        [config setName:@"cars"];
     }];
 }
 
@@ -47,18 +42,18 @@
     __block NSMutableArray *pagedResultSet;
     
     // fetch the first page
-    [_tweets readWithParams:@{@"q" : @"aerogear", @"page" : @"1", @"rpp" : @"1"} success:^(id responseObject) {
+    [_cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : [NSNumber numberWithInt:1]} success:^(id responseObject) {
         pagedResultSet = responseObject;  // page 1
         
-        // hold the "tweet id" from the first page, so that
+        // hold the "car id" from the first page, so that
         // we can match with the result when we move
         // to the next page down in the test.
-         NSString* tweet_id = [self extractTweetId:responseObject];
+        NSString *car_id = [self extractCarId:responseObject];
         
         // move to the next page
         [pagedResultSet next:^(id responseObject) {
             
-            STAssertFalse([tweet_id isEqualToString:[self extractTweetId:responseObject]], @"id's should not match.");
+            STAssertFalse([car_id isEqualToString:[self extractCarId:responseObject]], @"id's should not match.");
             
             [self setFinishRunLoop:YES];
             
@@ -81,7 +76,7 @@
     __block NSMutableArray *pagedResultSet;
     
     // fetch the first page
-    [_tweets readWithParams:@{@"q" : @"aerogear", @"page" : @"1", @"rpp" : @"1"} success:^(id responseObject) {
+    [_cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : [NSNumber numberWithInt:1]} success:^(id responseObject) {
         pagedResultSet = responseObject;  // page 1
         
         // move back to an invalid page
@@ -96,14 +91,13 @@
             // Note: "failure block" was called here
             // because we were at the first page and we
             // requested to go previous, that is to a non
-            // existing page ("previous_page" indentifier
-            // was missing from the twitter body response and we
-            // got a 403 http error).
+            // existing page ("previous" indentifier
+            // was missing from the headers response and we
+            // got a 400 error response).
             //
             // Note that this is not always the case, cause some
             // remote apis can send back either an empty list or
             // list with results, instead of throwing an error(see GitHub testcase)
-            
         }];
     } failure:^(NSError *error) {
         [self setFinishRunLoop:YES];
@@ -120,13 +114,13 @@
     __block NSMutableArray *pagedResultSet;
     
     // fetch the first page
-    [_tweets readWithParams:@{@"q" : @"aerogear", @"page" : @"1", @"rpp" : @"1"} success:^(id responseObject) {
+    [_cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : [NSNumber numberWithInt:1]} success:^(id responseObject) {
         pagedResultSet = responseObject;  // page 1
         
-        // hold the "twitter id" from the first page, so that
+        // hold the "car id" from the first page, so that
         // we can match with the result when we move
-        // backwards down in the test.
-        NSString* tweet_id = [self extractTweetId:responseObject];
+        // to the next page down in the test.
+        NSString *car_id = [self extractCarId:responseObject];
         
         // move to the second page
         [pagedResultSet next:^(id responseObject) {
@@ -134,8 +128,8 @@
             // move backwards (aka. page 1)
             [pagedResultSet previous:^(id responseObject) {
                 
-                STAssertEqualObjects(tweet_id, [self extractTweetId:responseObject], @"id's must match.");
-
+                STAssertEqualObjects(car_id, [self extractCarId:responseObject], @"id's must match.");
+                
                 [self setFinishRunLoop:YES];
             } failure:^(NSError *error) {
                 [self setFinishRunLoop:YES];
@@ -156,11 +150,9 @@
     }
 }
 
-// helper method to extract the tweet id from the result set
--(NSString*)extractTweetId:(NSArray*) responseObject {
-    NSArray* results = [[responseObject objectAtIndex:0] objectForKey:@"results"];
-
-    return [[results objectAtIndex:0] objectForKey:@"id_str"];
+// helper method to extract the "car id" from the result set
+-(NSString*)extractCarId:(NSArray*) responseObject {
+    return [[[responseObject objectAtIndex:0] objectForKey:@"id"] stringValue];
 }
 
 @end

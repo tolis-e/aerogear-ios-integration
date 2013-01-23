@@ -32,6 +32,7 @@
     _gists = [ghPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"gists"];
         [config setPreviousIdentifier:@"prev"];
+        [config setParameterProvider:@{@"page" : @"1", @"per_page" : @"5"}];
     }];
 }
 
@@ -43,16 +44,18 @@
     __block NSMutableArray *pagedResultSet;
     
     // fetch the first page
-    [_gists readWithParams:@{@"page" : @"0", @"per_page" : @"1"} success:^(id responseObject) {
+    [_gists readWithParams:@{@"page" : @"1", @"per_page" : @"1"} success:^(id responseObject) {
         pagedResultSet = responseObject;  // page 1
         
-        NSMutableArray *page1 = [pagedResultSet copy];
-        
+        // hold the "id" from the first page, so that
+        // we can match with the result when we move
+        // to the next page down in the test.
+        NSString* gist_id = [self extractGistId:responseObject];
+
         // move to the next page
         [pagedResultSet next:^(id responseObject) {
-            STAssertFalse([page1 isEqualToArray:responseObject], @"results should not match.");
             
-            // TODO. check if the desired number of items are here (e.g. one GIST object)
+            STAssertFalse([gist_id isEqualToString:[self extractGistId:responseObject]], @"id's should not match.");
             
             [self setFinishRunLoop:YES];
             
@@ -75,16 +78,23 @@
     __block NSMutableArray *pagedResultSet;
     
     // fetch the first page
-    [_gists readWithParams:@{@"page" : @"0", @"per_page" : @"1"} success:^(id responseObject) {
+    [_gists readWithParams:@{@"page" : @"1", @"per_page" : @"1"} success:^(id responseObject) {
         pagedResultSet = responseObject;  // page 1
         
         // move back from the first page
         [pagedResultSet previous:^(id responseObject) {
             
-            // TODO have in mind... there the applied "query" would be nil (since no 'prev' link is there).
-            // Does the paging work? E.g. do we get nothing ? do we get all ? Is that result also expected...
+            // Note: although success is called
+            // and we ask a non existing page
+            // (prev identifier was missing from the response)
+            // github responded with a list of results.
+            
+            // Some apis such as github respond even on the
+            // invalid page but others may throw an error
+            // (see Twitter and AGController case).
             
             [self setFinishRunLoop:YES];
+            
         } failure:^(NSError *error) {
             [self setFinishRunLoop:YES];
             STFail(@"%@", error);
@@ -107,10 +117,10 @@
     [_gists readWithParams:@{@"page" : @"0", @"per_page" : @"1"} success:^(id responseObject) {
         pagedResultSet = responseObject;  // page 1
         
-        // use to hold this paged results so
-        // that can be tested against when we
-        // move backwards down in the test
-        NSMutableArray *page1 = [pagedResultSet copy];
+        // hold the "id" from the first page, so that
+        // we can match with the result when we move
+        // backwards down in the test.
+        NSString* gist_id = [self extractGistId:responseObject];
         
         // move to the second page
         [pagedResultSet next:^(id responseObject) {
@@ -118,10 +128,7 @@
             // move backwards (aka. page 1)
             [pagedResultSet previous:^(id responseObject) {
                 
-                STAssertEqualObjects(page1, responseObject, @"results must match.");
-                
-                // TODO: you could also check the ID JSON key, on the two responses (there should be only one object)
-                
+                STAssertEqualObjects(gist_id, [self extractGistId:responseObject], @"id's must match.");
                 
                 [self setFinishRunLoop:YES];
             } failure:^(NSError *error) {
@@ -143,5 +150,9 @@
     }
 }
 
+// helper method to extract the "id" from the result set
+-(NSString*)extractGistId:(NSArray*) responseObject {
+    return [[responseObject objectAtIndex:0] objectForKey:@"id"];
+}
 @end
 
