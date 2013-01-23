@@ -92,7 +92,6 @@
             
         } failure:^(NSError *error) {
             [self setFinishRunLoop:YES];
-            STFail(@"%@", error);            
         }];
     } failure:^(NSError *error) {
         [self setFinishRunLoop:YES];
