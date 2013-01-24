@@ -186,6 +186,8 @@
 -(void)testBogusNextIdentifier {
     id<AGPipe> cars = [_agPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"cars"];
+        
+        // wrong setting:
         [config setNextIdentifier:@"foo"];
     }];
     
@@ -222,6 +224,8 @@
 -(void)testBogusPreviousIdentifier {
     id<AGPipe> cars = [_agPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"cars"];
+
+        // wrong setting:
         [config setPreviousIdentifier:@"foo"];
     }];
     
@@ -258,6 +262,8 @@
 -(void)testBogusMetadataLocation {
     id<AGPipe> cars = [_agPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"cars"];
+
+        // wrong setting:
         [config setMetadataLocation:@"body"];
     }];
     

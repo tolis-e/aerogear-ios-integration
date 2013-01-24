@@ -192,8 +192,10 @@
 -(void)testBogusNextIdentifier {
     id<AGPipe> cars = [_agPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"cars"];
-        [config setNextIdentifier:@"foo"];
         [config setMetadataLocation:@"header"];
+        
+        // wrong setting:
+        [config setNextIdentifier:@"foo"];
     }];
     
     __block NSMutableArray *pagedResultSet;
@@ -229,8 +231,10 @@
 -(void)testBogusPreviousIdentifier {
     id<AGPipe> cars = [_agPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"cars"];
+        [config setMetadataLocation:@"header"];
+        
+        // wrong setting:
         [config setPreviousIdentifier:@"foo"];
-        [config setMetadataLocation:@"header"];       
     }];
     
     __block NSMutableArray *pagedResultSet;
@@ -266,6 +270,8 @@
 -(void)testBogusMetadataLocation {
     id<AGPipe> cars = [_agPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"cars"];
+        
+        // wrong setting:
         [config setMetadataLocation:@"body"];
     }];
     

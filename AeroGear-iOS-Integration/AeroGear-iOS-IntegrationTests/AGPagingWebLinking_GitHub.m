@@ -32,7 +32,7 @@
     
     _gists = [_ghPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"gists"];
-        [config setPreviousIdentifier:@"prev"];
+        [config setPreviousIdentifier:@"prev"]; // github uses different than the AG ctrl
         [config setParameterProvider:@{@"page" : @"1", @"per_page" : @"5"}];
     }];
 }
@@ -50,7 +50,7 @@
         
         // hold the "id" from the first page, so that
         // we can match with the result when we move
-        // to the next page down in the test.
+        // to the next page down in the test. (hopefully ;-))
         NSString* gist_id = [self extractGistId:responseObject];
 
         // move to the next page
@@ -120,7 +120,7 @@
         
         // hold the "id" from the first page, so that
         // we can match with the result when we move
-        // backwards down in the test.
+        // backwards down in the test. (hopefully ;-))
         NSString* gist_id = [self extractGistId:responseObject];
         
         // move to the second page
@@ -187,6 +187,8 @@
 -(void)testBogusNextIdentifier {
     id <AGPipe> gists = [_ghPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"gists"];
+        
+        // invalid setting:
         [config setNextIdentifier:@"foo"];
     }];
     
@@ -199,7 +201,7 @@
         [pagedResultSet next:^(id responseObject) {
             
             // Note: succces is called here with default
-            // response of 30 elements. This is the default
+            // response of currently 30 elements. This is the default
             // behaviour of github if invalid params are
             // passed. Note this is not always the case as seen in
             // the Twitter/AGController test case.
@@ -224,6 +226,8 @@
 -(void)testBogusPreviousIdentifier {
     id <AGPipe> gists = [_ghPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"gists"];
+        
+        // invalid setting:
         [config setPreviousIdentifier:@"foo"];
     }];
     
@@ -236,7 +240,7 @@
         [pagedResultSet previous:^(id responseObject) {
             
             // Note: succces is called here with default
-            // response of 30 elements. This is the default
+            // response of currently 30 elements. This is the default
             // behaviour of github if invalid params are
             // passed. Note this is not always the case as seen in
             // the Twitter/AGController test case.
@@ -262,6 +266,8 @@
     id <AGPipe> gists = [_ghPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"gists"];
         [config setPreviousIdentifier:@"prev"];
+        
+        // invalid setting:
         [config setMetadataLocation:@"body"];
     }];
     

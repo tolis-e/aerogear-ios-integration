@@ -33,10 +33,10 @@
     _tweets = [_twPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"search.json"];
         
+        // this is the twitter specific setting:
+        [config setMetadataLocation:@"body"];
         [config setNextIdentifier:@"next_page"];
         [config setPreviousIdentifier:@"previous_page"];
-        
-        [config setMetadataLocation:@"body"];
     }];
 }
 
@@ -53,7 +53,7 @@
         
         // hold the "tweet id" from the first page, so that
         // we can match with the result when we move
-        // to the next page down in the test.
+        // to the next page down in the test. (hopefully ;-))
          NSString* tweet_id = [self extractTweetId:responseObject];
         
         // move to the next page
@@ -126,7 +126,7 @@
         
         // hold the "twitter id" from the first page, so that
         // we can match with the result when we move
-        // backwards down in the test.
+        // backwards down in the test. (hopefully ;-))
         NSString* tweet_id = [self extractTweetId:responseObject];
         
         // move to the second page
@@ -167,6 +167,7 @@
         [config setMetadataLocation:@"body"];
     }];
     
+    // giving nil, should use the global (see above)
     [tweets readWithParams:nil success:^(id responseObject) {
 
         NSArray* results = [[responseObject objectAtIndex:0] objectForKey:@"results"];
@@ -201,8 +202,10 @@
 -(void)testBogusNextIdentifier {
     id<AGPipe> tweets = [_twPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"search.json"];
-        [config setNextIdentifier:@"foo"];
         [config setMetadataLocation:@"body"];
+        
+        // invalid config, for twitter:
+        [config setNextIdentifier:@"foo"];
     }];
     
     __block NSMutableArray *pagedResultSet;
@@ -238,8 +241,10 @@
 -(void)testBogusPreviousIdentifier {
     id<AGPipe> tweets = [_twPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"search.json"];
-        [config setPreviousIdentifier:@"foo"];
         [config setMetadataLocation:@"body"];
+
+        // invalid config, for twitter:
+        [config setPreviousIdentifier:@"foo"];
     }];
     
     __block NSMutableArray *pagedResultSet;
@@ -275,9 +280,11 @@
 -(void)testBogusMetadataLocation {
     id<AGPipe> tweets = [_twPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"search.json"];
+        [config setMetadataLocation:@"header"];
+
+        // invalid config, for twitter:
         [config setNextIdentifier:@"next_page"];
         [config setPreviousIdentifier:@"previous_page"];
-        [config setMetadataLocation:@"header"];
     }];
     
     __block NSMutableArray *pagedResultSet;
