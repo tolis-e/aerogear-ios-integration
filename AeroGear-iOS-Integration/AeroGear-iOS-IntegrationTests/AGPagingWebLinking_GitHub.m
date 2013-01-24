@@ -19,6 +19,7 @@
 @end
 
 @implementation AGPagingWebLinking_GitHub {
+    AGPipeline* _ghPipeline;
     id<AGPipe> _gists;
 }
 
@@ -27,9 +28,9 @@
     
     // setting up the pipeline for the GitHub pipe
     NSURL* baseURL = [NSURL URLWithString:@"https://api.github.com/users/matzew/"];
-    AGPipeline* ghPipeline = [AGPipeline pipelineWithBaseURL:baseURL];
+    _ghPipeline = [AGPipeline pipelineWithBaseURL:baseURL];
     
-    _gists = [ghPipeline pipe:^(id<AGPipeConfig> config) {
+    _gists = [_ghPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"gists"];
         [config setPreviousIdentifier:@"prev"];
         [config setParameterProvider:@{@"page" : @"1", @"per_page" : @"5"}];
@@ -139,6 +140,151 @@
             [self setFinishRunLoop:YES];
             STFail(@"%@", error);
         }];
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
+    // keep the run loop going
+    while(![self finishRunLoop]) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+}
+
+-(void)testParameterProvider {
+    id <AGPipe> gists = [_ghPipeline pipe:^(id<AGPipeConfig> config) {
+        [config setName:@"gists"];
+        [config setPreviousIdentifier:@"prev"];
+        [config setParameterProvider:@{@"page" : @"1", @"per_page" : @"5"}];
+    }];
+    
+    [gists readWithParams:nil success:^(id responseObject) {
+
+        STAssertTrue([responseObject count] == 5, @"should be five");
+        
+        // override the results per page from parameter provider
+        [gists readWithParams:@{@"page" : @"1", @"per_page" : @"2"} success:^(id responseObject) {
+            
+            STAssertTrue([responseObject count] == 2, @"size should be two");
+            
+            [self setFinishRunLoop:YES];
+        } failure:^(NSError *error) {
+            [self setFinishRunLoop:YES];
+            STFail(@"%@", error);
+        }];
+
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
+    // keep the run loop going
+    while(![self finishRunLoop]) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+}
+
+-(void)testBogusNextIdentifier {
+    id <AGPipe> gists = [_ghPipeline pipe:^(id<AGPipeConfig> config) {
+        [config setName:@"gists"];
+        [config setNextIdentifier:@"foo"];
+    }];
+    
+    __block NSMutableArray *pagedResultSet;
+    
+    [gists readWithParams:@{@"page" : @"1", @"per_page" : @"5"} success:^(id responseObject) {
+        
+        pagedResultSet = responseObject;
+        
+        [pagedResultSet next:^(id responseObject) {
+            
+            // Note: succces is called here with default
+            // response of 30 elements. This is the default
+            // behaviour of github if invalid params are
+            // passed. Note this is not always the case as seen in
+            // the Twitter/AGController test case.
+            // Github behaviour is an exception here.
+            [self setFinishRunLoop:YES];
+            
+        } failure:^(NSError *error) {
+            [self setFinishRunLoop:YES];
+        }];
+        
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
+    // keep the run loop going
+    while(![self finishRunLoop]) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+}
+
+-(void)testBogusPreviousIdentifier {
+    id <AGPipe> gists = [_ghPipeline pipe:^(id<AGPipeConfig> config) {
+        [config setName:@"gists"];
+        [config setPreviousIdentifier:@"foo"];
+    }];
+    
+    __block NSMutableArray *pagedResultSet;
+    
+    [gists readWithParams:@{@"page" : @"2", @"per_page" : @"5"} success:^(id responseObject) {
+        
+        pagedResultSet = responseObject;
+        
+        [pagedResultSet previous:^(id responseObject) {
+            
+            // Note: succces is called here with default
+            // response of 30 elements. This is the default
+            // behaviour of github if invalid params are
+            // passed. Note this is not always the case as seen in
+            // the Twitter/AGController test case.
+            // Github behaviour is an exception here.
+            [self setFinishRunLoop:YES];
+            
+        } failure:^(NSError *error) {
+            [self setFinishRunLoop:YES];
+        }];
+        
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
+    // keep the run loop going
+    while(![self finishRunLoop]) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+}
+
+-(void)testBogusMetadataLocation {
+    id <AGPipe> gists = [_ghPipeline pipe:^(id<AGPipeConfig> config) {
+        [config setName:@"gists"];
+        [config setPreviousIdentifier:@"prev"];
+        [config setMetadataLocation:@"body"];
+    }];
+    
+    __block NSMutableArray *pagedResultSet;
+    
+    [gists readWithParams:@{@"page" : @"1", @"per_page" : @"5"} success:^(id responseObject) {
+        
+        pagedResultSet = responseObject;
+        
+        [pagedResultSet next:^(id responseObject) {
+            [self setFinishRunLoop:YES];
+            
+            // Note: succces is called here with default
+            // response of 30 elements. This is the default
+            // behaviour of github if invalid or no params are
+            // passed. Note this is not always the case as seen in
+            // the Twitter/AGController test case.
+            // Github behaviour is an exception here.
+            
+        } failure:^(NSError *error) {
+            [self setFinishRunLoop:YES];
+        }];
+        
     } failure:^(NSError *error) {
         [self setFinishRunLoop:YES];
         STFail(@"%@", error);

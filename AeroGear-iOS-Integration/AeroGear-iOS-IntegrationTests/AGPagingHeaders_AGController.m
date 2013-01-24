@@ -19,6 +19,7 @@
 @end
 
 @implementation AGPagingHeaders_AGController {
+    AGPipeline* _agPipeline;
     id<AGPipe> _cars;
 }
 
@@ -27,9 +28,9 @@
     
     // setting up the pipeline for the AeroGear Controller pipe
     NSURL* baseURL = [NSURL URLWithString:@"http://controllerdemo-danbev.rhcloud.com/aerogear-controller-demo"];
-    AGPipeline* agPipeline = [AGPipeline pipelineWithBaseURL:baseURL];
+    _agPipeline = [AGPipeline pipelineWithBaseURL:baseURL];
     
-    _cars = [agPipeline pipe:^(id<AGPipeConfig> config) {
+    _cars = [_agPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"cars-custom"];
         [config setNextIdentifier:@"AG-Links-Next"];
         [config setPreviousIdentifier:@"AG-Links-Previous"];
@@ -142,6 +143,147 @@
             [self setFinishRunLoop:YES];
             STFail(@"%@", error);
         }];
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
+    // keep the run loop going
+    while(![self finishRunLoop]) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+}
+
+-(void)testParameterProvider {
+    id<AGPipe> cars = [_agPipeline pipe:^(id<AGPipeConfig> config) {
+        [config setName:@"cars-custom"];
+        [config setNextIdentifier:@"AG-Links-Next"];
+        [config setPreviousIdentifier:@"AG-Links-Previous"];
+        [config setParameterProvider:@{@"color" : @"black", @"offset" : @"0", @"limit" : [NSNumber numberWithInt:1]}];
+        [config setMetadataLocation:@"header"];
+    }];
+    
+    [cars readWithParams:nil success:^(id responseObject) {
+        
+        STAssertTrue([responseObject count] == 1, @"size should be one.");
+        
+        // override the results per page from parameter provider
+        [cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : [NSNumber numberWithInt:4]} success:^(id responseObject) {
+            
+            STAssertTrue([responseObject count] == 4, @"size should be four.");
+            
+            [self setFinishRunLoop:YES];
+        } failure:^(NSError *error) {
+            [self setFinishRunLoop:YES];
+            STFail(@"%@", error);
+        }];
+        
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
+    // keep the run loop going
+    while(![self finishRunLoop]) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+}
+
+-(void)testBogusNextIdentifier {
+    id<AGPipe> cars = [_agPipeline pipe:^(id<AGPipeConfig> config) {
+        [config setName:@"cars"];
+        [config setNextIdentifier:@"foo"];
+        [config setMetadataLocation:@"header"];
+    }];
+    
+    __block NSMutableArray *pagedResultSet;
+    
+    [cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : [NSNumber numberWithInt:1]} success:^(id responseObject) {
+        
+        pagedResultSet = responseObject;
+        
+        [pagedResultSet next:^(id responseObject) {
+            
+            STFail(@"should not have called");
+            
+            [self setFinishRunLoop:YES];
+        } failure:^(NSError *error) {
+            [self setFinishRunLoop:YES];
+            
+            // Note: failure is called cause the next identifier
+            // is invalid so we can move to the next page
+            
+        }];
+        
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
+    // keep the run loop going
+    while(![self finishRunLoop]) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+}
+
+-(void)testBogusPreviousIdentifier {
+    id<AGPipe> cars = [_agPipeline pipe:^(id<AGPipeConfig> config) {
+        [config setName:@"cars"];
+        [config setPreviousIdentifier:@"foo"];
+        [config setMetadataLocation:@"header"];       
+    }];
+    
+    __block NSMutableArray *pagedResultSet;
+    
+    [cars readWithParams:@{@"color" : @"black", @"offset" : @"2", @"limit" : [NSNumber numberWithInt:1]} success:^(id responseObject) {
+        
+        pagedResultSet = responseObject;
+        
+        [pagedResultSet previous:^(id responseObject) {
+            
+            STFail(@"should not have called");
+            
+            [self setFinishRunLoop:YES];
+        } failure:^(NSError *error) {
+            [self setFinishRunLoop:YES];
+            
+            // Note: failure is called cause the previous identifier
+            // is invalid so we can move to the previous page
+            
+        }];
+        
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+        STFail(@"%@", error);
+    }];
+    
+    // keep the run loop going
+    while(![self finishRunLoop]) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+}
+
+-(void)testBogusMetadataLocation {
+    id<AGPipe> cars = [_agPipeline pipe:^(id<AGPipeConfig> config) {
+        [config setName:@"cars"];
+        [config setMetadataLocation:@"body"];
+    }];
+    
+    __block NSMutableArray *pagedResultSet;
+    
+    [cars readWithParams:@{@"color" : @"black", @"offset" : @"2", @"limit" : [NSNumber numberWithInt:1]} success:^(id responseObject) {
+        
+        pagedResultSet = responseObject;
+        
+        [pagedResultSet next:^(id responseObject) {
+            
+            STFail(@"should not have called");
+            
+            [self setFinishRunLoop:YES];
+        } failure:^(NSError *error) {
+            [self setFinishRunLoop:YES];
+        }];
+        
     } failure:^(NSError *error) {
         [self setFinishRunLoop:YES];
         STFail(@"%@", error);
