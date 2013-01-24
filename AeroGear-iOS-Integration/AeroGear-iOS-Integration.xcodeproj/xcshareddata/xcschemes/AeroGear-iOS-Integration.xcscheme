@@ -42,21 +42,6 @@
                   Identifier = "AGRestPipeTests">
                </Test>
                <Test
-                  Identifier = "AGRestPipe_ProjectTests">
-               </Test>
-               <Test
-                  Identifier = "AGRestPipe_TagTests">
-               </Test>
-               <Test
-                  Identifier = "AGRestPipe_TaskTests">
-               </Test>
-               <Test
-                  Identifier = "AppNetPipeTests">
-               </Test>
-               <Test
-                  Identifier = "WorldOfWarcraft_PipeTests">
-               </Test>
-               <Test
                   Identifier = "AGPagingWebLinking_Twitter">
                </Test>
             </SkippedTests>
