@@ -27,7 +27,7 @@
     [super setUp];
     
     // setting up the pipeline for the AeroGear Controller pipe
-    NSURL* baseURL = [NSURL URLWithString:@"http://controller-aerogear.rhcloud.com/aerogear-controller-demo"];
+    NSURL* baseURL = [NSURL URLWithString:@"https://controller-aerogear.rhcloud.com/aerogear-controller-demo"];
     _agPipeline = [AGPipeline pipelineWithBaseURL:baseURL];
     
     _cars = [_agPipeline pipe:^(id<AGPipeConfig> config) {
