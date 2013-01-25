@@ -43,7 +43,7 @@
     __block NSMutableArray *pagedResultSet;
     
     // fetch the first page
-    [_cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : [NSNumber numberWithInt:1]} success:^(id responseObject) {
+    [_cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : @1} success:^(id responseObject) {
         pagedResultSet = responseObject;  // page 1
         
         // hold the "car id" from the first page, so that
@@ -77,7 +77,7 @@
     __block NSMutableArray *pagedResultSet;
     
     // fetch the first page
-    [_cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : [NSNumber numberWithInt:1]} success:^(id responseObject) {
+    [_cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : @1} success:^(id responseObject) {
         pagedResultSet = responseObject;  // page 1
         
         // move back to an invalid page
@@ -115,7 +115,7 @@
     __block NSMutableArray *pagedResultSet;
     
     // fetch the first page
-    [_cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : [NSNumber numberWithInt:1]} success:^(id responseObject) {
+    [_cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : @1} success:^(id responseObject) {
         pagedResultSet = responseObject;  // page 1
         
         // hold the "car id" from the first page, so that
@@ -154,7 +154,7 @@
 -(void)testParameterProvider {
     id<AGPipe> cars = [_agPipeline pipe:^(id<AGPipeConfig> config) {
         [config setName:@"cars"];
-        [config setParameterProvider:@{@"color" : @"black", @"offset" : @"0", @"limit" : [NSNumber numberWithInt:1]}];
+        [config setParameterProvider:@{@"color" : @"black", @"offset" : @"0", @"limit" : @1}];
     }];
     
     [cars readWithParams:nil success:^(id responseObject) {
@@ -162,7 +162,7 @@
         STAssertTrue([responseObject count] == 1, @"size should be one.");
 
         // override the results per page from parameter provider
-        [cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : [NSNumber numberWithInt:4]} success:^(id responseObject) {
+        [cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : @4} success:^(id responseObject) {
             
             STAssertTrue([responseObject count] == 4, @"size should be four.");
             
@@ -193,7 +193,7 @@
     
      __block NSMutableArray *pagedResultSet;
     
-    [cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : [NSNumber numberWithInt:1]} success:^(id responseObject) {
+    [cars readWithParams:@{@"color" : @"black", @"offset" : @"0", @"limit" : @1} success:^(id responseObject) {
         
         pagedResultSet = responseObject;
         
@@ -231,7 +231,7 @@
     
     __block NSMutableArray *pagedResultSet;
     
-    [cars readWithParams:@{@"color" : @"black", @"offset" : @"2", @"limit" : [NSNumber numberWithInt:1]} success:^(id responseObject) {
+    [cars readWithParams:@{@"color" : @"black", @"offset" : @"2", @"limit" : @1} success:^(id responseObject) {
         
         pagedResultSet = responseObject;
         
@@ -269,7 +269,7 @@
     
     __block NSMutableArray *pagedResultSet;
 
-    [cars readWithParams:@{@"color" : @"black", @"offset" : @"2", @"limit" : [NSNumber numberWithInt:1]} success:^(id responseObject) {
+    [cars readWithParams:@{@"color" : @"black", @"offset" : @"2", @"limit" : @1} success:^(id responseObject) {
         
         pagedResultSet = responseObject;
         
