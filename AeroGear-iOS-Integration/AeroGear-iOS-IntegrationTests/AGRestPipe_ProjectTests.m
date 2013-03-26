@@ -33,7 +33,7 @@ NSString* __createId;
     // setting up authenticator, pipeline and the pipe for the projects:
     // basic setup, for every test
 
-    NSURL* projectsURL = [NSURL URLWithString:@"http://localhost:8080/todo-server/"];
+    NSURL* projectsURL = [NSURL URLWithString:@"https://todoauth-aerogear.rhcloud.com/todo-server/"];
     
     // create the authenticator
     AGAuthenticator* authenticator = [AGAuthenticator authenticator];
