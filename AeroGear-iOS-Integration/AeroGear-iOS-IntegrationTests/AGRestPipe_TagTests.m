@@ -33,7 +33,7 @@ NSString* __createId;
     // setting up authenticator, pipeline and the pipe for the projects:
     // basic setup, for every test
     
-    NSURL* projectsURL = [NSURL URLWithString:@"https://todoauth-aerogear.rhcloud.com/todo-server/"];
+    NSURL* projectsURL = [NSURL URLWithString:@"https://todo-aerogear.rhcloud.com/todo-server/"];
     
     // create the authenticator
     AGAuthenticator* authenticator = [AGAuthenticator authenticator];
@@ -76,7 +76,15 @@ NSString* __createId;
             // store the id for this newly created object
             __createId = [[responseObject valueForKey:@"id"] stringValue];
             
-            [self setFinishRunLoop:YES];
+            
+            // now, we need to logout:
+            [_authModule logout:^{
+                [self setFinishRunLoop:YES];
+            } failure:^(NSError *error) {
+                [self setFinishRunLoop:YES];
+                STFail(@"%@", error);
+            }];
+            
             
         } failure:^(NSError *error) {
             [self setFinishRunLoop:YES];
@@ -103,7 +111,15 @@ NSString* __createId;
             NSLog(@"%@", responseObject);
             STAssertTrue(0 < [responseObject count], @"should NOT be empty...");
             
-            [self setFinishRunLoop:YES];
+            
+            // now, we need to logout:
+            [_authModule logout:^{
+                [self setFinishRunLoop:YES];
+            } failure:^(NSError *error) {
+                [self setFinishRunLoop:YES];
+                STFail(@"%@", error);
+            }];
+            
             
         } failure:^(NSError *error) {
             [self setFinishRunLoop:YES];
@@ -129,7 +145,15 @@ NSString* __createId;
             STAssertEqualObjects(__createId,
                                  [[responseObject valueForKey:@"id"] stringValue], @"did read single project");
             
-            [self setFinishRunLoop:YES];
+            
+            // now, we need to logout:
+            [_authModule logout:^{
+                [self setFinishRunLoop:YES];
+            } failure:^(NSError *error) {
+                [self setFinishRunLoop:YES];
+                STFail(@"%@", error);
+            }];
+            
             
         } failure:^(NSError *error) {
             [self setFinishRunLoop:YES];
@@ -161,7 +185,15 @@ NSString* __createId;
             STAssertEqualObjects(__createId,
                                  [[responseObject valueForKey:@"id"] stringValue], @"did update tag");
             
-            [self setFinishRunLoop:YES];
+            
+            // now, we need to logout:
+            [_authModule logout:^{
+                [self setFinishRunLoop:YES];
+            } failure:^(NSError *error) {
+                [self setFinishRunLoop:YES];
+                STFail(@"%@", error);
+            }];
+            
             
         } failure:^(NSError *error) {
             [self setFinishRunLoop:YES];
@@ -194,7 +226,15 @@ NSString* __createId;
             [_tags read:^(id responseObject) {
                 STAssertTrue(0 == [responseObject count], @"should be empty...");
                 
-                [self setFinishRunLoop:YES];
+                
+                // now, we need to logout:
+                [_authModule logout:^{
+                    [self setFinishRunLoop:YES];
+                } failure:^(NSError *error) {
+                    [self setFinishRunLoop:YES];
+                    STFail(@"%@", error);
+                }];
+                
                 
             } failure:^(NSError *error) {
                 STFail(@"%@", error);
