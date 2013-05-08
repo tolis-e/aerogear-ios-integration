@@ -238,7 +238,7 @@ NSString* __createId;
     [_tasks remove:task success:^(id responseObject) {
 
         // see if the read is empty now.....
-        [_tasks read:^(id responseObject) {
+        [_tasks read:__createId success:^(id responseObject) {
             STAssertTrue(0 == [responseObject count], @"should be empty...");
             
             

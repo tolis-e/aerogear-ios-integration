@@ -223,7 +223,7 @@ NSString* __createId;
         [_tags remove:tag success:^(id responseObject) {
             
             // see if the read is empty now.....
-            [_tags read:^(id responseObject) {
+            [_tags read:__createId success:^(id responseObject) {
                 STAssertTrue(0 == [responseObject count], @"should be empty...");
                 
                 

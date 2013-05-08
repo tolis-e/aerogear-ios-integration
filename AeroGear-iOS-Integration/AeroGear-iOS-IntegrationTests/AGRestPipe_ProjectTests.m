@@ -217,7 +217,7 @@ NSString* __createId;
     [_projects remove:project success:^(id responseObject) {
         
         // see if the read is empty now.....
-        [_projects read:^(id responseObject) {
+        [_projects read:__createId success:^(id responseObject) {
             STAssertTrue(0 == [responseObject count], @"should be empty...");
             
             // now, we need to logout:
