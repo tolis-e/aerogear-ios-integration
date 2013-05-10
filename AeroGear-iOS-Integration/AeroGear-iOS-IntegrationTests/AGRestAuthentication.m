@@ -53,10 +53,9 @@ static NSString *const ENROLL_PASSWORD = @"123";
     STAssertNotNil(_authModule, @"module should not be nil");
 }
 
--(void)testLoginAndLogout {
+-(void)testLoginSuccess {
     [_authModule login:PASSING_USERNAME password:LOGIN_PASSWORD success:^(id responseObject) {
         STAssertEqualObjects(PASSING_USERNAME, [responseObject valueForKey:@"username"], @"should be equal");
-        STAssertEqualObjects([responseObject valueForKey:@"logged"], @"true", @"should be true");
         
         [_authModule logout:^{
             [self setFinishRunLoop:YES];
@@ -91,6 +90,20 @@ static NSString *const ENROLL_PASSWORD = @"123";
     }
 }
 
+-(void)testLogoutWithoutLogin {
+    [_authModule logout:^{
+        STFail(@"should NOT have been called");
+        [self setFinishRunLoop:YES];
+    } failure:^(NSError *error) {
+        [self setFinishRunLoop:YES];
+    }];
+        
+    // keep the run loop going
+    while(![self finishRunLoop]) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+}
+
 -(void)testEnrollSuccess {
     NSMutableDictionary* registerPayload = [NSMutableDictionary dictionary];
     
@@ -107,7 +120,6 @@ static NSString *const ENROLL_PASSWORD = @"123";
     
     [_authModule enroll:registerPayload success:^(id responseObject) {
         STAssertEqualObjects(username, [responseObject valueForKey:@"username"], @"should be equal");
-                STAssertEqualObjects([responseObject valueForKey:@"logged"], @"true", @"should be true");
         
         [_authModule logout:^{
             [self setFinishRunLoop:YES];
