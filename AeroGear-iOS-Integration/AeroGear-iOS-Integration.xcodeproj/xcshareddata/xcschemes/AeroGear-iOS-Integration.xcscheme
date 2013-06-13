@@ -37,11 +37,6 @@
                BlueprintName = "AeroGear-iOS-IntegrationTests"
                ReferencedContainer = "container:AeroGear-iOS-Integration.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "AGPagingBody_Twitter">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
