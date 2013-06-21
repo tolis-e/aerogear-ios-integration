@@ -29,6 +29,7 @@
 		6F2DE9591771A7D9004BFA9C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2DE9561771A7C2004BFA9C /* Security.framework */; };
 		6F2DE95A1771A7DE004BFA9C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2DE9501771A796004BFA9C /* SystemConfiguration.framework */; };
 		6F2DE95B1771A7EC004BFA9C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2DE9541771A7BB004BFA9C /* CoreGraphics.framework */; };
+		6F2DE95F1771A88C004BFA9C /* AGHttpAuthenticationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2DE95D1771A88C004BFA9C /* AGHttpAuthenticationTests.m */; };
 		6F52DFFF16AFF35D00F0C74B /* AGPagingWebLinking_GitHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F52DFFE16AFF35D00F0C74B /* AGPagingWebLinking_GitHub.m */; };
 		6F52E00316B0096C00F0C74B /* AGPagingHeaders_AGController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F52E00216B0096C00F0C74B /* AGPagingHeaders_AGController.m */; };
 		6FC4CCD616B0737200A4CECC /* AGPagingWebLinking_AGController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC4CCD516B0737200A4CECC /* AGPagingWebLinking_AGController.m */; };
@@ -82,6 +83,7 @@
 		6F2DE9521771A79B004BFA9C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		6F2DE9541771A7BB004BFA9C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6F2DE9561771A7C2004BFA9C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		6F2DE95D1771A88C004BFA9C /* AGHttpAuthenticationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGHttpAuthenticationTests.m; sourceTree = "<group>"; };
 		6F52DFFE16AFF35D00F0C74B /* AGPagingWebLinking_GitHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPagingWebLinking_GitHub.m; sourceTree = "<group>"; };
 		6F52E00216B0096C00F0C74B /* AGPagingHeaders_AGController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPagingHeaders_AGController.m; sourceTree = "<group>"; };
 		6FC4CCD516B0737200A4CECC /* AGPagingWebLinking_AGController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPagingWebLinking_AGController.m; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				57DCDB6415F0FF8A00289EA4 /* abstract */,
 				570CAC2B15F0AF8A00E54378 /* Supporting Files */,
 				6FD55A91173D0855000297B6 /* AGRestAuthentication.m */,
+				6F2DE95D1771A88C004BFA9C /* AGHttpAuthenticationTests.m */,
 				57DCDB5815F0FD5700289EA4 /* AGRestPipe_TaskTests.m */,
 				57F0C7911653ED3C0017287F /* WorldOfWarcraft_PipeTests.m */,
 				57DCDB5C15F0FD6500289EA4 /* AGRestPipe_ProjectTests.m */,
@@ -366,6 +369,7 @@
 				6FC4CCD616B0737200A4CECC /* AGPagingWebLinking_AGController.m in Sources */,
 				6FEA928F1716C36A0035065A /* AGPagingBody_Reddit.m in Sources */,
 				6FD55A92173D0855000297B6 /* AGRestAuthentication.m in Sources */,
+				6F2DE95F1771A88C004BFA9C /* AGHttpAuthenticationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
