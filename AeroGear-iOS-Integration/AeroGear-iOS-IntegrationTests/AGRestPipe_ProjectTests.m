@@ -63,7 +63,7 @@ NSString* __createId;
 // CREATE
 -(void)testCreateProject {
     // login....
-    [_authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@{@"username": @"john", @"password":@"123"} success:^(id object) {
 
     // a new project object, structure looks like:
     NSMutableDictionary* project = [NSMutableDictionary dictionary];
@@ -103,7 +103,7 @@ NSString* __createId;
 // READ
 -(void)testReadProjects {
     // login....
-    [_authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@{@"username": @"john", @"password":@"123"} success:^(id object) {
     
     // read all projects
     [_projects read:^(id responseObject) {
@@ -135,7 +135,7 @@ NSString* __createId;
 
 -(void)testReadSingleProject {
     // login....
-    [_authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@{@"username": @"john", @"password":@"123"} success:^(id object) {
         
         // save the updated project on server
         [_projects read:__createId success:^(id responseObject) {
@@ -169,7 +169,7 @@ NSString* __createId;
 // UPDATE
 -(void)testUpdateProject {
     // login....
-    [_authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@{@"username": @"john", @"password":@"123"} success:^(id object) {
 
     NSMutableDictionary* project = [NSMutableDictionary dictionary];
     [project setValue:@"updated by a test-case" forKey:@"title"];
@@ -207,7 +207,7 @@ NSString* __createId;
 // awful name... but this needs to run after UPDATE...
 -(void)test_DeleteProject {
     // login....
-    [_authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@{@"username": @"john", @"password":@"123"} success:^(id object) {
         
     NSMutableDictionary* project = [NSMutableDictionary dictionary];
     [project setValue:@"updated by a test-case" forKey:@"title"];

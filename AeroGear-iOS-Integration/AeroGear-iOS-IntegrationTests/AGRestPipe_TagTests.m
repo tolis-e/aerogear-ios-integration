@@ -63,7 +63,7 @@ NSString* __createId;
 // CREATE
 -(void)testCreateTag {
     // login....
-    [_authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@{@"username": @"john", @"password":@"123"} success:^(id object) {
 
         // a new tag object, structure looks like:
         NSMutableDictionary* tag = [NSMutableDictionary dictionary];
@@ -104,7 +104,7 @@ NSString* __createId;
 // READ
 -(void)testReadTags {
     // login....
-    [_authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@{@"username": @"john", @"password":@"123"} success:^(id object) {
         
         // read all tags
         [_tags read:^(id responseObject) {
@@ -138,7 +138,7 @@ NSString* __createId;
 
 -(void)testReadSingleTag {
     // login....
-    [_authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@{@"username": @"john", @"password":@"123"} success:^(id object) {
         
         // save the updated project on server
         [_tags read:__createId success:^(id responseObject) {
@@ -174,7 +174,7 @@ NSString* __createId;
 // UPDATE
 -(void)testUpdateTag {
     // login....
-    [_authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@{@"username": @"john", @"password":@"123"} success:^(id object) {
         
         NSMutableDictionary* tag = [NSMutableDictionary dictionary];
         [tag setObject:@"updated by a test-case" forKey:@"title"];
@@ -214,7 +214,7 @@ NSString* __createId;
 // awful name... but this needs to run after UPDATE...
 -(void)test_DeleteTag {
     // login....
-    [_authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@{@"username": @"john", @"password":@"123"} success:^(id object) {
         
         NSMutableDictionary* tag = [NSMutableDictionary dictionary];
         [tag setValue:__createId forKey:@"id"];

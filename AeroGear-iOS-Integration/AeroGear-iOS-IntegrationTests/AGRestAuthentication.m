@@ -54,7 +54,7 @@ static NSString *const ENROLL_PASSWORD = @"123";
 }
 
 -(void)testLoginSuccess {
-    [_authModule login:PASSING_USERNAME password:LOGIN_PASSWORD success:^(id responseObject) {
+    [_authModule login:@{@"username":PASSING_USERNAME, @"password":LOGIN_PASSWORD} success:^(id responseObject) {
         STAssertEqualObjects(PASSING_USERNAME, [responseObject valueForKey:@"username"], @"should be equal");
         
         [_authModule logout:^{
@@ -76,7 +76,7 @@ static NSString *const ENROLL_PASSWORD = @"123";
 }
 
 -(void)testLoginFails {
-    [_authModule login:FAILING_USERNAME password:LOGIN_PASSWORD success:^(id responseObject) {
+    [_authModule login:@{@"username":FAILING_USERNAME, @"password":LOGIN_PASSWORD} success:^(id responseObject) {
         STFail(@"should NOT have been called");
         
         [self setFinishRunLoop:YES];

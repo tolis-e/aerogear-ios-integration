@@ -63,7 +63,7 @@ NSString* __createId;
 -(void)testCreateTask {
     
     // login....
-    [_authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@{@"username": @"john", @"password":@"123"} success:^(id object) {
    
     // a new task object, structure looks like:
     // {
@@ -112,7 +112,7 @@ NSString* __createId;
 // READ
 -(void)testReadTasks {
     // login....
-    [_authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@{@"username": @"john", @"password":@"123"} success:^(id object) {
         
     // read all tasks
     [_tasks read:^(id responseObject) {
@@ -144,7 +144,7 @@ NSString* __createId;
 
 -(void)testReadSingleTask {
     // login....
-    [_authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@{@"username": @"john", @"password":@"123"} success:^(id object) {
         
         // save the updated project on server
         [_tasks read:__createId success:^(id responseObject) {
@@ -180,7 +180,7 @@ NSString* __createId;
 // UPDATE
 -(void)testUpdateTask {
     // login....
-    [_authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@{@"username": @"john", @"password":@"123"} success:^(id object) {
 
     // a new task object, structure looks like:
     // {
@@ -229,7 +229,7 @@ NSString* __createId;
 // awful name... but this needs to run after UPDATE...
 -(void)test_DeleteTask {
     // login....
-    [_authModule login:@"john" password:@"123" success:^(id object) {
+    [_authModule login:@{@"username": @"john", @"password":@"123"} success:^(id object) {
 
     NSMutableDictionary* task = [NSMutableDictionary dictionary];
     [task setValue:__createId forKey:@"id"];
