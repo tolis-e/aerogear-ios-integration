@@ -78,26 +78,31 @@
                                  userInfo:nil];
 }
 
+-(void) login:(NSString*) username
+     password:(NSString*) password
+      success:(void (^)(id object))success
+      failure:(void (^)(NSError *error))failure DEPRECATED_ATTRIBUTE {
+    
+    [self login:@{@"user": username, @"passwd": password} success:success failure:failure];
+}
+
 -(void) login:(NSDictionary*) loginData
       success:(void (^)(id object))success
       failure:(void (^)(NSError *error))failure {
-
+    
     NSString* loginURL = [NSString stringWithFormat:@"%@", _loginEndpoint];
     
-    [_restClient setDefaultHeader:@"User-Agent" value:[@"AeroGear iOS /u/" stringByAppendingString:loginData[@"username"]]];
-
+    [_restClient setDefaultHeader:@"User-Agent" value:[@"AeroGear iOS /u/" stringByAppendingString:loginData[@"user"]]];
+    
     NSDictionary* postData = @{@"api_type": @"json",
-                                 @"user": loginData[@"username"],
-                                 @"passwd:" : loginData[@"password"]};
-
-    NSLog(@"%@", loginData[@"username"]);
-    NSLog(@"%@", loginData[@"password"]);
+                               @"user": loginData[@"user"],
+                               @"passwd": loginData[@"passwd"]};
     
     [_restClient postPath:loginURL parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
+        
         // stash the auth token...:
         [self readAndStashToken:responseObject];
-
+        
         if (success) {
             success(responseObject);
         }
@@ -211,7 +216,7 @@
 
     _rdtAuth = [[AGRedditAuthenticationModule alloc] init];
     
-    [_rdtAuth login:@{@"username": @"aerogear", @"password": @"123456"} success:^(id object) {
+    [_rdtAuth login:@{@"user": @"aerogear", @"passwd": @"123456"} success:^(id object) {
 
         _rdtPipeline = [AGPipeline pipelineWithBaseURL:baseURL];
         
