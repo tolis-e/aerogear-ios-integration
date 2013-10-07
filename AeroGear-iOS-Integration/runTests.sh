@@ -18,4 +18,4 @@
 
 ## build for the simulator:
 echo "Executing the tests"
-xcodebuild -scheme AeroGear-iOS-IntegrationTests -sdk iphonesimulator -workspace AeroGear-iOS-Integration.xcworkspace -configuration Release clean build TEST_AFTER_BUILD=YES
+xcodebuild -scheme AeroGear-iOS-IntegrationTests -sdk iphonesimulator -workspace AeroGear-iOS-Integration.xcworkspace -configuration Release clean build test 
