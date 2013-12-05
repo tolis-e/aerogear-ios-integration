@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "570CAC0F15F0AF8A00E54378"
-               BuildableName = "libAeroGear-iOS-Integration.a"
+               BlueprintIdentifier = "6FF023CE184F643A002FD75C"
+               BuildableName = "AeroGear-iOS-Integration.app"
                BlueprintName = "AeroGear-iOS-Integration"
                ReferencedContainer = "container:AeroGear-iOS-Integration.xcodeproj">
             </BuildableReference>

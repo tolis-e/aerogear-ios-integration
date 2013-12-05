@@ -37,6 +37,44 @@
                BlueprintName = "AeroGear-iOS-IntegrationTests"
                ReferencedContainer = "container:AeroGear-iOS-Integration.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "AGAbstractBaseTestClass">
+               </Test>
+               <Test
+                  Identifier = "AGHttpAuthenticationTests">
+               </Test>
+               <Test
+                  Identifier = "AGPagingBody_Reddit">
+               </Test>
+               <Test
+                  Identifier = "AGPagingHeaders_AGController">
+               </Test>
+               <Test
+                  Identifier = "AGPagingWebLinking_AGController">
+               </Test>
+               <Test
+                  Identifier = "AGPagingWebLinking_GitHub">
+               </Test>
+               <Test
+                  Identifier = "AGRestAuthenticationTests">
+               </Test>
+               <Test
+                  Identifier = "AGRestPipe_TagTests">
+               </Test>
+               <Test
+                  Identifier = "AGRestPipe_ProjectTests">
+               </Test>
+               <Test
+                  Identifier = "AGRestPipe_TaskTests">
+               </Test>
+               <Test
+                  Identifier = "AppNetPipeTests">
+               </Test>
+               <Test
+                  Identifier = "WorldOfWarcraft_PipeTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
