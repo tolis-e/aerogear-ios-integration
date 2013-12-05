@@ -24,6 +24,8 @@
 		6F2DE95F1771A88C004BFA9C /* AGHttpAuthenticationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2DE95D1771A88C004BFA9C /* AGHttpAuthenticationTests.m */; };
 		6F52DFFF16AFF35D00F0C74B /* AGPagingWebLinking_GitHub.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F52DFFE16AFF35D00F0C74B /* AGPagingWebLinking_GitHub.m */; };
 		6F52E00316B0096C00F0C74B /* AGPagingHeaders_AGController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F52E00216B0096C00F0C74B /* AGPagingHeaders_AGController.m */; };
+		6F58792318509B8A00F01BFA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2DE9501771A796004BFA9C /* SystemConfiguration.framework */; };
+		6F58792418509B9000F01BFA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2DE9521771A79B004BFA9C /* MobileCoreServices.framework */; };
 		6FC4CCD616B0737200A4CECC /* AGPagingWebLinking_AGController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC4CCD516B0737200A4CECC /* AGPagingWebLinking_AGController.m */; };
 		6FD55A92173D0855000297B6 /* AGRestAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD55A91173D0855000297B6 /* AGRestAuthentication.m */; };
 		6FEA928F1716C36A0035065A /* AGPagingBody_Reddit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEA928E1716C36A0035065A /* AGPagingBody_Reddit.m */; };
@@ -118,6 +120,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F58792418509B9000F01BFA /* MobileCoreServices.framework in Frameworks */,
+				6F58792318509B8A00F01BFA /* SystemConfiguration.framework in Frameworks */,
 				6FF023D1184F643A002FD75C /* CoreGraphics.framework in Frameworks */,
 				6FF023D2184F643A002FD75C /* UIKit.framework in Frameworks */,
 				6FF023D0184F643A002FD75C /* Foundation.framework in Frameworks */,
