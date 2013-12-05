@@ -45,7 +45,6 @@
     id<AGPipe> wowStatusPipe = [wowPipeline pipeWithName:@"status"];
     
     [wowStatusPipe read:^(id responseObject) {
-        NSLog(@"%@", responseObject);
         [self setFinishRunLoop:YES];
     } failure:^(NSError *error) {
         NSLog(@"%@", error);
@@ -67,7 +66,6 @@
     id<AGPipe> wowStatusPipe = [wowPipeline pipeWithName:@"races"];
     
     [wowStatusPipe read:^(id responseObject) {
-        NSLog(@"%@", responseObject);
         [self setFinishRunLoop:YES];
     } failure:^(NSError *error) {
         NSLog(@"%@", error);
@@ -90,10 +88,8 @@
     id<AGPipe> wowStatusPipe = [wowPipeline pipeWithName:@"recipe33994"];
     
     [wowStatusPipe read:^(id responseObject) {
-        NSLog(@"%@", responseObject);
         [self setFinishRunLoop:YES];
     } failure:^(NSError *error) {
-        NSLog(@"%@", error);
         [self setFinishRunLoop:YES];
         STFail(@"%@", error);
     }];

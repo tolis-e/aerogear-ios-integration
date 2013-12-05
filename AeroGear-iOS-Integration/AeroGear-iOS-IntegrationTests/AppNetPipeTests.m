@@ -44,10 +44,8 @@
     id<AGPipe> wowStatusPipe = [appNetPipeline pipeWithName:@"globalStream"];
     
     [wowStatusPipe read:^(id responseObject) {
-        NSLog(@"%@", responseObject);
         [self setFinishRunLoop:YES];
     } failure:^(NSError *error) {
-        NSLog(@"%@", error);
         [self setFinishRunLoop:YES];
     }];
     

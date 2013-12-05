@@ -116,7 +116,6 @@ NSString* __createId;
         
     // read all tasks
     [_tasks read:^(id responseObject) {
-        NSLog(@"%@", responseObject);
         STAssertTrue(0 < [responseObject count], @"should NOT be empty...");
 
         // now, we need to logout:

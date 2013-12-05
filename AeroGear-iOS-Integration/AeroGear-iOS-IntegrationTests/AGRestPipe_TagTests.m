@@ -108,7 +108,6 @@ NSString* __createId;
         
         // read all tags
         [_tags read:^(id responseObject) {
-            NSLog(@"%@", responseObject);
             STAssertTrue(0 < [responseObject count], @"should NOT be empty...");
             
             
