@@ -1,5 +1,6 @@
-Integration Tests for the AeroGear-iOS library...
--------------------------------------------------
+# aerogear-ios-integration [![Build Status](https://travis-ci.org/aerogear/aerogear-ios-integration.png)](https://travis-ci.org/aerogear/aerogear-ios-integration)
+
+Integration Tests for the [aerogear-ios](https://github.com/aerogear/aerogear-ios) library.
 
 The project requires [CocoaPods](http://cocoapods.org/) for dependency management;
 
