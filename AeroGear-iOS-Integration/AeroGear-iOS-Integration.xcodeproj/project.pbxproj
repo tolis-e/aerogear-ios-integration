@@ -11,9 +11,6 @@
 		570CAC2515F0AF8A00E54378 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 570CAC2415F0AF8A00E54378 /* UIKit.framework */; };
 		570CAC2615F0AF8A00E54378 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 570CAC1315F0AF8A00E54378 /* Foundation.framework */; };
 		570CAC2F15F0AF8A00E54378 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 570CAC2D15F0AF8A00E54378 /* InfoPlist.strings */; };
-		57DCDB5915F0FD5700289EA4 /* AGRestPipe_TaskTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 57DCDB5815F0FD5700289EA4 /* AGRestPipe_TaskTests.m */; };
-		57DCDB5D15F0FD6500289EA4 /* AGRestPipe_ProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 57DCDB5C15F0FD6500289EA4 /* AGRestPipe_ProjectTests.m */; };
-		57DCDB6015F0FD7A00289EA4 /* AGRestPipe_TagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 57DCDB5F15F0FD7A00289EA4 /* AGRestPipe_TagTests.m */; };
 		57DCDB6315F0FF2400289EA4 /* AGAbstractBaseTestClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 57DCDB6215F0FF2400289EA4 /* AGAbstractBaseTestClass.m */; };
 		57F0C7921653ED3C0017287F /* WorldOfWarcraft_PipeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F0C7911653ED3C0017287F /* WorldOfWarcraft_PipeTests.m */; };
 		57F0C7B7165413610017287F /* AppNetPipeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F0C7B6165413610017287F /* AppNetPipeTests.m */; };
@@ -27,7 +24,6 @@
 		6F58792318509B8A00F01BFA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2DE9501771A796004BFA9C /* SystemConfiguration.framework */; };
 		6F58792418509B9000F01BFA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2DE9521771A79B004BFA9C /* MobileCoreServices.framework */; };
 		6FC4CCD616B0737200A4CECC /* AGPagingWebLinking_AGController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC4CCD516B0737200A4CECC /* AGPagingWebLinking_AGController.m */; };
-		6FD55A92173D0855000297B6 /* AGRestAuthentication.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD55A91173D0855000297B6 /* AGRestAuthentication.m */; };
 		6FEA928F1716C36A0035065A /* AGPagingBody_Reddit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEA928E1716C36A0035065A /* AGPagingBody_Reddit.m */; };
 		6FF023D0184F643A002FD75C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 570CAC1315F0AF8A00E54378 /* Foundation.framework */; };
 		6FF023D1184F643A002FD75C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2DE9541771A7BB004BFA9C /* CoreGraphics.framework */; };
@@ -65,9 +61,6 @@
 		570CAC2E15F0AF8A00E54378 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		570CAC4215F0B03900E54378 /* Dummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dummy.h; sourceTree = "<group>"; };
 		570CAC4315F0B03900E54378 /* Dummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dummy.m; sourceTree = "<group>"; };
-		57DCDB5815F0FD5700289EA4 /* AGRestPipe_TaskTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGRestPipe_TaskTests.m; sourceTree = "<group>"; };
-		57DCDB5C15F0FD6500289EA4 /* AGRestPipe_ProjectTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGRestPipe_ProjectTests.m; sourceTree = "<group>"; };
-		57DCDB5F15F0FD7A00289EA4 /* AGRestPipe_TagTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGRestPipe_TagTests.m; sourceTree = "<group>"; };
 		57DCDB6115F0FF2400289EA4 /* AGAbstractBaseTestClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGAbstractBaseTestClass.h; sourceTree = "<group>"; };
 		57DCDB6215F0FF2400289EA4 /* AGAbstractBaseTestClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGAbstractBaseTestClass.m; sourceTree = "<group>"; };
 		57F0C7911653ED3C0017287F /* WorldOfWarcraft_PipeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldOfWarcraft_PipeTests.m; sourceTree = "<group>"; };
@@ -80,7 +73,6 @@
 		6F52DFFE16AFF35D00F0C74B /* AGPagingWebLinking_GitHub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPagingWebLinking_GitHub.m; sourceTree = "<group>"; };
 		6F52E00216B0096C00F0C74B /* AGPagingHeaders_AGController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPagingHeaders_AGController.m; sourceTree = "<group>"; };
 		6FC4CCD516B0737200A4CECC /* AGPagingWebLinking_AGController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPagingWebLinking_AGController.m; sourceTree = "<group>"; };
-		6FD55A91173D0855000297B6 /* AGRestAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGRestAuthentication.m; sourceTree = "<group>"; };
 		6FEA928E1716C36A0035065A /* AGPagingBody_Reddit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPagingBody_Reddit.m; sourceTree = "<group>"; };
 		6FF023CF184F643A002FD75C /* AeroGear-iOS-Integration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AeroGear-iOS-Integration.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FF023D5184F643A002FD75C /* AeroGear-iOS-Integration-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AeroGear-iOS-Integration-Info.plist"; sourceTree = "<group>"; };
@@ -194,12 +186,8 @@
 			children = (
 				57DCDB6415F0FF8A00289EA4 /* abstract */,
 				570CAC2B15F0AF8A00E54378 /* Supporting Files */,
-				6FD55A91173D0855000297B6 /* AGRestAuthentication.m */,
 				6F2DE95D1771A88C004BFA9C /* AGHttpAuthenticationTests.m */,
-				57DCDB5815F0FD5700289EA4 /* AGRestPipe_TaskTests.m */,
 				57F0C7911653ED3C0017287F /* WorldOfWarcraft_PipeTests.m */,
-				57DCDB5C15F0FD6500289EA4 /* AGRestPipe_ProjectTests.m */,
-				57DCDB5F15F0FD7A00289EA4 /* AGRestPipe_TagTests.m */,
 				57F0C7B6165413610017287F /* AppNetPipeTests.m */,
 				6F52DFFE16AFF35D00F0C74B /* AGPagingWebLinking_GitHub.m */,
 				6FEA928E1716C36A0035065A /* AGPagingBody_Reddit.m */,
@@ -409,10 +397,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FF02400184F6A8A002FD75C /* AGEncryptedMemoryStorageSpec.m in Sources */,
-				57DCDB5915F0FD5700289EA4 /* AGRestPipe_TaskTests.m in Sources */,
-				57DCDB5D15F0FD6500289EA4 /* AGRestPipe_ProjectTests.m in Sources */,
 				6FF02402184F6A8A002FD75C /* AGPassphraseKeyServicesSpec.m in Sources */,
-				57DCDB6015F0FD7A00289EA4 /* AGRestPipe_TagTests.m in Sources */,
 				57DCDB6315F0FF2400289EA4 /* AGAbstractBaseTestClass.m in Sources */,
 				57F0C7921653ED3C0017287F /* WorldOfWarcraft_PipeTests.m in Sources */,
 				57F0C7B7165413610017287F /* AppNetPipeTests.m in Sources */,
@@ -422,7 +407,6 @@
 				6FC4CCD616B0737200A4CECC /* AGPagingWebLinking_AGController.m in Sources */,
 				6FF02401184F6A8A002FD75C /* AGEncryptedPropertyListStorageSpec.m in Sources */,
 				6FEA928F1716C36A0035065A /* AGPagingBody_Reddit.m in Sources */,
-				6FD55A92173D0855000297B6 /* AGRestAuthentication.m in Sources */,
 				6F2DE95F1771A88C004BFA9C /* AGHttpAuthenticationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
